@@ -107,7 +107,7 @@ describe "Korolev.konstructor via names" do
       def alpha(one, two)
         @one, @two = one, two
       end
-      
+
       def betta(three)
         @three = three
       end

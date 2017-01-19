@@ -3,18 +3,16 @@
 shared_examples "one custom constructor" do
 
   context "instantiate" do
-    subject {[ instance.zero, instance.one, instance.two, instance.three ]}
-
     context "via alpha constructor" do
       let(:instance) { klass.alpha(1, 2) }
 
-      it { is_expected.to eq [nil, 1, 2, nil] }
+      specify { expect_instance_state nil, 1, 2, nil }
     end
 
     context "via default constructor and unaffected betta method" do
       let(:instance) { klass.new.tap { |i| i.betta(3) } }
 
-      it { is_expected.to eq [0, nil, nil, 3] }
+      specify { expect_instance_state 0, nil, nil, 3 }
     end
   end
 
@@ -22,7 +20,7 @@ shared_examples "one custom constructor" do
     context "non-existant betta constructor" do
       subject { klass.betta(3) }
 
-      specify { expect { subject }.to raise_error(NoMethodError) }
+      specify { expect_no_method_error }
     end
 
     context "private instance constructor method" do
@@ -30,18 +28,15 @@ shared_examples "one custom constructor" do
       subject { instance.alpha(11, 22) }
 
       specify do
-        expect { subject }.to raise_error(NoMethodError)
-        expect(instance.one).to eq 1
-        expect(instance.two).to eq 2
+        expect_no_method_error
+        expect_instance_state nil, 1, 2, nil
       end
     end
 
     context "DSL konstructor method" do
       subject { klass.konstructor :betta }
 
-      specify do
-        expect { subject }.to raise_error(NoMethodError)
-      end
+      specify { expect_no_method_error }
     end
   end
 

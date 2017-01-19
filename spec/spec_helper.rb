@@ -7,3 +7,21 @@ require 'korolev'
 # to avoid having Bundler as runtime dependency
 require 'bundler/setup'
 Bundler.require(:development)
+
+Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }
+
+RSpec.configure do |config|
+  config.color = true
+
+  if config.files_to_run.one?
+    # Use the documentation formatter for detailed output,
+    # unless a formatter has already been configured
+    # (e.g. via a command-line flag).
+    config.default_formatter = 'doc'
+  end
+
+  config.include CoreHelpers
+  config.extend RspecExtensions
+
+end
+

@@ -2,19 +2,26 @@ require 'korolev/version'
 
 module Korolev
 
-  # it is a cross-cutting concern, therefor using a base class is incorrect, it should be a module
+  # it is a cross-cutting concern, therefore using a module instead of base class
+  # it should be a module
   def self.included(base)
     base.instance_exec do
       # is multiple include possible?
-      @constructor_names ||= []
+      @konstructor_names ||= []
 
       private
 
-      def konstructor(*constructor_names)
-        if constructor_names.empty?
-          @next_method_is_constructor = true
+      def konstructor(*konstructor_names)
+        if konstructor_names.empty?
+          @next_method_is_konstructor = true
         else
-          @constructor_names += constructor_names.map(&:to_sym)
+          @next_method_is_konstructor = false
+          @konstructor_names.concat(konstructor_names.map(&:to_sym))
+          @konstructor_names.each do |name|
+            if method_defined?(name) || private_method_defined?(name)
+              setup_konstructor(self, name)
+            end
+          end
         end
 
         # self.class_exec do
@@ -23,19 +30,28 @@ module Korolev
       end
 
       def method_added(name)
-        if @next_method_is_constructor || @constructor_names.include?(name.to_sym)
-          # defining class method
-          self.define_singleton_method(name) do |*args|
-            instance = allocate
-            instance.send(name, *args)
-            instance
-          end
+        name = name.to_sym
 
-          # marking instance method as private
-          private name
-
-          @next_method_is_constructor = false
+        if @next_method_is_konstructor
+          @konstructor_names << name
+          @next_method_is_konstructor = false
         end
+
+        if @konstructor_names.include?(name)
+          setup_konstructor(self, name)
+        end
+      end
+
+      def setup_konstructor(klass, name)
+        # defining class method
+        klass.define_singleton_method(name) do |*args|
+          instance = allocate
+          instance.send(name, *args)
+          instance
+        end
+
+        # marking instance method as private
+        klass.send(:private, name)
       end
     end
   end

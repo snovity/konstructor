@@ -1,8 +1,10 @@
 # Korolev
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/korolev`. To experiment with that code, run `bin/console` for an interactive prompt.
+Korolev allows you to have multiple constructors in Ruby with just one
+simple declaration.
 
-TODO: Delete this and the text above, and describe your gem
+For details, read motivation behind this gem is in this blog post.
+
 
 ## Installation
 
@@ -22,7 +24,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Constructors defined with Korolev work the same way as real Ruby 
+construtors in all senses.
+ 
+konstructor call implies private, i.e. all constructors will be private methods even if they
+are declared as public.
+
+You can place call to konstructor with names anywhere. It works similar to private, 
+public calls, you can use it with symbol or without.
+When used without, it will affect only the next method. When used with name, 
+it can be used before and after method definition. Named and nameless declarations can be mixed.
 
 ## Development
 
@@ -32,7 +43,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/korolev. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/snovity/korolev. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

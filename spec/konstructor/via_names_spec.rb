@@ -22,10 +22,41 @@ describe "Korolev.konstructor via names" do
   context "when one custom constructor" do
     let_klass do
       konstructor :alpha
-
       def alpha(one, two)
         @one, @two = one, two
       end
+
+      def betta(three)
+        @three = three
+      end
+    end
+
+    include_examples "one custom constructor"
+  end
+
+  context "when two constructor declarations for the same method before it" do
+    let_klass do
+      konstructor :alpha
+      konstructor :alpha
+      def alpha(one, two)
+        @one, @two = one, two
+      end
+
+      def betta(three)
+        @three = three
+      end
+    end
+
+    include_examples "one custom constructor"
+  end
+
+  context "when two constructor declarations for the same method before and after it" do
+    let_klass do
+      konstructor :alpha
+      def alpha(one, two)
+        @one, @two = one, two
+      end
+      konstructor :alpha
 
       def betta(three)
         @three = three
@@ -117,16 +148,5 @@ describe "Korolev.konstructor via names" do
 
     include_examples "two custom constructors"
   end
-
-  context "when new or initialize is used" do
-
-
-  end
-
-  context "works with blocks"
-
-  context "raises error if initialize or new given"
-
-  context "when subclassed and super called"
 
 end

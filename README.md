@@ -1,5 +1,7 @@
 # Korolev
 
+Minimalistic gem
+
 Korolev allows you to have multiple constructors in Ruby with just one
 simple declaration.
 
@@ -34,6 +36,14 @@ You can place call to konstructor with names anywhere. It works similar to priva
 public calls, you can use it with symbol or without.
 When used without, it will affect only the next method. When used with name, 
 it can be used before and after method definition. Named and nameless declarations can be mixed.
+
+### Inheritance
+
+Since konstructor is a instance method, you can override it in subclass and call super as usual.
+
+### Defining konstructors in Modules
+
+Use ActiveSupport::Concern and define constructor in your ClassMethods or write on inlcuded hook manually.
 
 ## Development
 

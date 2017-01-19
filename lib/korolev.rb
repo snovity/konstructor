@@ -15,7 +15,7 @@ module Korolev
         if konstructor_names.empty?
           @next_method_is_konstructor = true
         else
-          @next_method_is_konstructor = false
+          @next_method_is_konstructor = nil
           @konstructor_names.concat(konstructor_names.map(&:to_sym))
           @konstructor_names.each do |name|
             if method_defined?(name) || private_method_defined?(name)
@@ -23,10 +23,6 @@ module Korolev
             end
           end
         end
-
-        # self.class_exec do
-        #   binding.pry
-        # end
       end
 
       def method_added(name)
@@ -34,10 +30,9 @@ module Korolev
 
         if @next_method_is_konstructor
           @konstructor_names << name
-          @next_method_is_konstructor = false
-        end
-
-        if @konstructor_names.include?(name)
+          @next_method_is_konstructor = nil
+          setup_konstructor(self, name)
+        elsif @konstructor_names.include?(name)
           setup_konstructor(self, name)
         end
       end

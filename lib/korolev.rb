@@ -23,8 +23,10 @@ module Korolev
           @next_method_is_konstructor = true
         else
           @next_method_is_konstructor = nil
-          konstructor_names.concat(new_konstructor_names.map(&:to_sym))
-          konstructor_names.each do |name|
+          new_konstructor_names = new_konstructor_names.map(&:to_sym)
+          konstructor_names.concat(new_konstructor_names)
+
+          new_konstructor_names.each do |name|
             method_defined = method_defined?(name) || private_method_defined?(name)
             superclass_method_defined = superclass.method_defined?(name) || superclass.private_method_defined?(name)
             if method_defined && !superclass_method_defined
@@ -45,9 +47,13 @@ module Korolev
           konstructor_names << name
           @next_method_is_konstructor = nil
           setup_konstructor(self, name)
-        elsif konstructor_names.include?(name)
+        elsif should_be_konstructor?(name)
           setup_konstructor(self, name)
         end
+      end
+
+      def should_be_konstructor?(name)
+        konstructor_names.include?(name) || (superclass.respond_to?(:should_be_konstructor?, true) && superclass.send(:should_be_konstructor?, name))
       end
 
       def setup_konstructor(klass, name)

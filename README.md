@@ -5,9 +5,6 @@ Minimalistic gem
 Korolev allows you to have multiple constructors in Ruby with just one
 simple declaration.
 
-For details, read motivation behind this gem is in this blog post.
-
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -43,13 +40,20 @@ Using reserved method names 'new' and 'initialize' for custom constructor defini
 
 ### Inheritance
 
-Since konstructor is a instance method, you can override it in subclass and call super as usual.
+Since konstructor is a instance method, you can override it in subclass and call super as usual. Once method is
+a marked constructor in hierarchy, it is always a constructor.
+
 Inherited methods can't be to constructor in subclass, you should define a new constructor in subclass
 and reuse inherited method.
 
 ### Defining konstructors in Modules
 
 Use ActiveSupport::Concern and define constructor in your ClassMethods or write on inlcuded hook manually.
+
+## Details
+
+In Ruby constructors are actually factories and it is a pair of class and instance methods. For motivation 
+behind such approach and an step by step explanation of how gem works you can read this article.
 
 ## Development
 

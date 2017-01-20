@@ -78,15 +78,28 @@ describe "Korolev.konstructor inheritance" do
       def_betta
     end
 
-    let_klass(inherit: :base_klass) do
-      def alpha(one, two)
-        super(one * 2, two * 2)
+    context "and modifies arguments for subclass" do
+      let_klass(inherit: :base_klass) do
+        def alpha(one, two)
+          super(one * 2, two * 2)
+        end
       end
+
+      let(:instance) { klass.alpha(1, 2) }
+
+      specify { expect_instance_state nil, 2, 4, nil }
     end
 
-    let(:instance) { klass.alpha(1, 2) }
+    context "and sets another variable" do
+      let_klass(inherit: :base_klass) do
+        def alpha(one, two)
+          @minus_one = -1
+          super
+        end
+      end
 
-    specify { expect_instance_state nil, 2, 4, nil }
+      include_examples "one custom constructor"
+    end
   end
 
   context "when two custom constructors are inherited from base class" do

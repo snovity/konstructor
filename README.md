@@ -44,6 +44,8 @@ Using reserved method names 'new' and 'initialize' for custom constructor defini
 ### Inheritance
 
 Since konstructor is a instance method, you can override it in subclass and call super as usual.
+Inherited methods can't be to constructor in subclass, you should define a new constructor in subclass
+and reuse inherited method.
 
 ### Defining konstructors in Modules
 

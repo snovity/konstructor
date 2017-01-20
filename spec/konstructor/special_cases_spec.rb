@@ -1,10 +1,9 @@
 require 'spec_helper'
-require_relative 'shared'
 
 describe "Korolev.konstructor" do
 
   context "when block is given" do
-    let_klass do
+    let_korolev_klass do
       konstructor
       def alpha(one, two)
         @one, @two = one, two
@@ -24,7 +23,7 @@ describe "Korolev.konstructor" do
 
     context "'new' is used" do
       context "via name before method is defined" do
-        let_klass do
+        let_korolev_klass do
           konstructor :new
         end
 
@@ -32,7 +31,7 @@ describe "Korolev.konstructor" do
       end
 
       context "via next method when method will be defined" do
-        let_klass do
+        let_korolev_klass do
           konstructor
           def new
             'oops'
@@ -45,7 +44,7 @@ describe "Korolev.konstructor" do
 
     context "'initialize' is used" do
       context "via name after method is defined" do
-        let_klass do
+        let_korolev_klass do
           konstructor :initialize
         end
 
@@ -53,7 +52,7 @@ describe "Korolev.konstructor" do
       end
 
       context "via next method when method will be redifined" do
-        let_klass do
+        let_korolev_klass do
           konstructor
           def initialize
             puts 'oops'

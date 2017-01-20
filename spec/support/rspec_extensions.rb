@@ -1,30 +1,36 @@
 module RspecExtensions
 
   def let_klass(options = {}, &block)
-    let(:klass) do
-      Class.new(options[:inherit] || Object) do
-        include Korolev
+    let(options[:name] || :klass) do
+      inherit = options[:inherit] ? send(options[:inherit]) : Object
 
-        attr_reader :zero, :one, :two, :three
+      Class.new(inherit, &block)
+    end
+  end
 
-        def initialize
-          @zero = 0
-        end
+  def let_korolev_klass(options = {}, &block)
+    let_klass(options) do
+      include Korolev
 
-        def self.def_alpha
-          def alpha(one, two)
-            @one, @two = one, two
-          end
-        end
+      attr_reader :zero, :one, :two, :three
 
-        def self.def_betta
-          def betta(three)
-            @three = three
-          end
-        end
-
-        class_exec(&block)
+      def initialize
+        @zero = 0
       end
+
+      def self.def_alpha
+        def alpha(one, two)
+          @one, @two = one, two
+        end
+      end
+
+      def self.def_betta
+        def betta(three)
+          @three = three
+        end
+      end
+
+      class_exec(&block)
     end
   end
 

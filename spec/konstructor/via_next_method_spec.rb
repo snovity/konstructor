@@ -4,7 +4,7 @@ require_relative 'shared'
 describe "Korolev.konstructor via next method" do
 
   context "when one custom constructor" do
-    let_klass do
+    let_korolev_klass do
       konstructor
       def_alpha
 
@@ -15,7 +15,7 @@ describe "Korolev.konstructor via next method" do
   end
 
   context "when two custom constructors" do
-    let_klass do
+    let_korolev_klass do
       konstructor
       def_alpha
 
@@ -27,7 +27,7 @@ describe "Korolev.konstructor via next method" do
   end
 
   context "when two custom constructors in when methods are marked private" do
-    let_klass do
+    let_korolev_klass do
       konstructor
       private
       def_alpha

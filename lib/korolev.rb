@@ -38,12 +38,21 @@ module Korolev
       end
 
       def setup_konstructor(klass, name)
+        # not sure if this eval-less way is fully portable
+        # klass.define_singleton_method(name) do |*args, &block|
+        #   instance = allocate
+        #   instance.send(name, *args, &block)
+        #   instance
+        # end
+
         # defining class method
-        klass.define_singleton_method(name) do |*args|
-          instance = allocate
-          instance.send(name, *args)
-          instance
-        end
+        klass.instance_eval <<-RUBY, __FILE__, __LINE__
+          def #{name}(*args, &block)
+            instance = allocate
+            instance.send(:#{name}, *args, &block)
+            instance
+          end
+        RUBY
 
         # marking instance method as private
         klass.send(:private, name)

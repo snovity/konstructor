@@ -2,6 +2,12 @@ require 'korolev/version'
 
 module Korolev
 
+  class DefaultConstructorError < StandardError
+    def initialize(name)
+      super "Custom constructor can't have name '#{name}', it is reserved for default constructor."
+    end
+  end
+
   # it is a cross-cutting concern, therefore using a module instead of base class
   # it should be a module
   def self.included(base)
@@ -20,6 +26,10 @@ module Korolev
           @konstructor_names.each do |name|
             if method_defined?(name) || private_method_defined?(name)
               setup_konstructor(self, name)
+            else
+              # not sure if konstructor ever will be defined,
+              # but want to inform the user about the problem anyway
+              validate_name(name)
             end
           end
         end
@@ -38,6 +48,7 @@ module Korolev
       end
 
       def setup_konstructor(klass, name)
+        validate_name(name)
         # not sure if this eval-less way is fully portable
         # klass.define_singleton_method(name) do |*args, &block|
         #   instance = allocate
@@ -56,6 +67,12 @@ module Korolev
 
         # marking instance method as private
         klass.send(:private, name)
+      end
+
+      def validate_name(name)
+        if [:new, :initialize].include?(name)
+          raise DefaultConstructorError, name
+        end
       end
     end
   end

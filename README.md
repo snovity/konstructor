@@ -37,6 +37,10 @@ public calls, you can use it with symbol or without.
 When used without, it will affect only the next method. When used with name, 
 it can be used before and after method definition. Named and nameless declarations can be mixed.
 
+Passing of blocks also works.
+
+Using reserved method names 'new' and 'initialize' for custom constructor definition will raise an error.
+
 ### Inheritance
 
 Since konstructor is a instance method, you can override it in subclass and call super as usual.

@@ -7,13 +7,9 @@ describe "Korolev.konstructor mixed" do
     let_klass do
       konstructor
       konstructor :alpha
-      def betta(three)
-        @three = three
-      end
+      def_betta
 
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
     end
 
     include_examples "one custom constructor"
@@ -22,14 +18,10 @@ describe "Korolev.konstructor mixed" do
   context "when two custom constructors" do
     let_klass do
       konstructor :alpha
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -37,15 +29,11 @@ describe "Korolev.konstructor mixed" do
 
   context "when two custom constructors" do
     let_klass do
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor :alpha
       konstructor
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -53,14 +41,10 @@ describe "Korolev.konstructor mixed" do
 
   context "when two custom constructors" do
     let_klass do
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor
-      def betta(three)
-        @three = three
-      end
+      def_betta
       konstructor :alpha
     end
 

@@ -6,13 +6,9 @@ describe "Korolev.konstructor via next method" do
   context "when one custom constructor" do
     let_klass do
       konstructor
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "one custom constructor"
@@ -21,14 +17,10 @@ describe "Korolev.konstructor via next method" do
   context "when two custom constructors" do
     let_klass do
       konstructor
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -38,14 +30,10 @@ describe "Korolev.konstructor via next method" do
     let_klass do
       konstructor
       private
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"

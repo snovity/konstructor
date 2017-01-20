@@ -7,13 +7,9 @@ describe "Korolev.konstructor via names" do
 
   context "when no custom constructors" do
     let_klass do
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "no custom constructors"
@@ -22,13 +18,9 @@ describe "Korolev.konstructor via names" do
   context "when one custom constructor" do
     let_klass do
       konstructor :alpha
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "one custom constructor"
@@ -38,13 +30,9 @@ describe "Korolev.konstructor via names" do
     let_klass do
       konstructor :alpha
       konstructor :alpha
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "one custom constructor"
@@ -53,14 +41,10 @@ describe "Korolev.konstructor via names" do
   context "when two constructor declarations for the same method before and after it" do
     let_klass do
       konstructor :alpha
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
       konstructor :alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "one custom constructor"
@@ -70,13 +54,9 @@ describe "Korolev.konstructor via names" do
     let_klass do
       konstructor :alpha, :betta
 
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -84,15 +64,11 @@ describe "Korolev.konstructor via names" do
 
   context "when two custom constructors in the middle of method definitions" do
     let_klass do
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
       konstructor :alpha, :betta
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -100,13 +76,9 @@ describe "Korolev.konstructor via names" do
 
   context "when two custom constructors after method definitions" do
     let_klass do
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
 
       konstructor :alpha, :betta
     end
@@ -119,13 +91,9 @@ describe "Korolev.konstructor via names" do
       konstructor :alpha
       konstructor :betta
 
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
     end
 
     include_examples "two custom constructors"
@@ -135,13 +103,9 @@ describe "Korolev.konstructor via names" do
     let_klass do
       private
 
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+      def_alpha
 
-      def betta(three)
-        @three = three
-      end
+      def_betta
 
       konstructor :alpha, :betta
     end

@@ -9,6 +9,18 @@ module RspecExtensions
       def initialize
         @zero = 0
       end
+
+      def self.def_alpha
+        def alpha(one, two)
+          @one, @two = one, two
+        end
+      end
+
+      def self.def_betta
+        def betta(three)
+          @three = three
+        end
+      end
     end
     klass.class_exec(&block)
 

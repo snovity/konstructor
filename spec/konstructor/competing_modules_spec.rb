@@ -3,7 +3,7 @@ require_relative 'shared'
 
 describe "Korolev.konstructor included when another module that adds method_added" do
 
-  context "via extend" do
+  context "without super via extend" do
     module KorolevCompetingExtend
       attr_reader :test_methods
 
@@ -44,7 +44,53 @@ describe "Korolev.konstructor included when another module that adds method_adde
     end
   end
 
-  context "via include" do
+  context "with super via include" do
+    module KorolevCompetingIncludeSuper
+      def self.included(base)
+        class << base
+          attr_reader :test_methods
+
+          def method_added(name)
+            @test_methods ||= []
+            @test_methods << :"#{name}man"
+            super
+          end
+        end
+      end
+    end
+
+    context "before Korolev via include" do
+      let_klass do
+        include KorolevCompetingIncludeSuper
+        include Korolev
+
+        konstructor
+        def_alpha
+        def_betta
+      end
+
+      specify { expect_working_module }
+
+      include_examples "one custom constructor"
+    end
+
+    context "after Korolev via include" do
+      let_klass do
+        include Korolev
+        include KorolevCompetingIncludeSuper
+
+        konstructor
+        def_alpha
+        def_betta
+      end
+
+      specify { expect_working_module }
+
+      include_examples "one custom constructor"
+    end
+  end
+
+  context "without super via include" do
     module KorolevCompetingInclude
       def self.included(base)
         class << base

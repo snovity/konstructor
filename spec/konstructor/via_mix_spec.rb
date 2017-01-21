@@ -8,7 +8,6 @@ describe "Korolev.konstructor mixed" do
       konstructor
       konstructor :alpha
       def_betta
-
       def_alpha
     end
 

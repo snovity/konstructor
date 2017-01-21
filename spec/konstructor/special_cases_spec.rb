@@ -34,7 +34,7 @@ describe "Korolev.konstructor" do
         let_korolev_klass do
           konstructor
           def new
-            'oops'
+            # do nothing
           end
         end
 
@@ -55,7 +55,7 @@ describe "Korolev.konstructor" do
         let_korolev_klass do
           konstructor
           def initialize
-            puts 'oops'
+            # do nothing
           end
         end
 

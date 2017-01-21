@@ -24,7 +24,29 @@ describe "Korolev.konstructor included when another module that adds method_adde
     include_examples "one custom constructor"
   end
 
-  context "when current class uses method added" do
+  context "when current class uses method added with super" do
+    let_korolev_klass do
+      class << self
+        attr_reader :test_methods
+
+        def method_added(name)
+          @test_methods ||= []
+          @test_methods << :"#{name}man"
+          super
+        end
+      end
+
+      konstructor
+      def_alpha
+      def_betta
+    end
+
+    specify { expect_working_module }
+
+    include_examples "one custom constructor"
+  end
+
+  context "when current class uses method added without super" do
     let_korolev_klass do
       class << self
         attr_reader :test_methods

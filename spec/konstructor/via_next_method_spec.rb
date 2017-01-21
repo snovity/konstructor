@@ -7,7 +7,6 @@ describe "Korolev.konstructor via next method" do
     let_korolev_klass do
       konstructor
       def_alpha
-
       def_betta
     end
 

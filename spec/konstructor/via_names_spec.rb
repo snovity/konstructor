@@ -1,14 +1,11 @@
 require 'spec_helper'
 require_relative 'shared'
 
-# WHAT ABOUT WHEN DECLARATION USED IN MODULE AND IT IS INCLUDED,
-# maybe just raise an error?
 describe "Korolev.konstructor via names" do
 
   context "when no custom constructors" do
     let_korolev_klass do
       def_alpha
-
       def_betta
     end
 
@@ -19,7 +16,6 @@ describe "Korolev.konstructor via names" do
     let_korolev_klass do
       konstructor :alpha
       def_alpha
-
       def_betta
     end
 
@@ -31,7 +27,6 @@ describe "Korolev.konstructor via names" do
       konstructor :alpha
       konstructor :alpha
       def_alpha
-
       def_betta
     end
 
@@ -55,7 +50,6 @@ describe "Korolev.konstructor via names" do
       konstructor :alpha, :betta
 
       def_alpha
-
       def_betta
     end
 
@@ -77,7 +71,6 @@ describe "Korolev.konstructor via names" do
   context "when two custom constructors after method definitions" do
     let_korolev_klass do
       def_alpha
-
       def_betta
 
       konstructor :alpha, :betta
@@ -92,7 +85,6 @@ describe "Korolev.konstructor via names" do
       konstructor :betta
 
       def_alpha
-
       def_betta
     end
 
@@ -104,7 +96,6 @@ describe "Korolev.konstructor via names" do
       private
 
       def_alpha
-
       def_betta
 
       konstructor :alpha, :betta

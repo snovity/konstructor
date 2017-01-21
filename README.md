@@ -50,6 +50,27 @@ and reuse inherited method.
 
 Use ActiveSupport::Concern and define constructor in your ClassMethods or write on inlcuded hook manually.
 
+### Conflicts with other gems
+
+Korolev written way that avoid any conflict with other gem. If you find a gem that Korolev conflicts with, please
+open an issue and give an example code.
+
+Korolev works with gems that use the same metaprogramming approach, such as rake, thor, contracts, etc.
+
+When you include Korolev only one method `konstructor` is defined. 
+Until method `konstructor` is called in class, the class is not affected any other way.
+  
+There are not 
+  
+### Getting rid of includes
+  
+This is totally safe, there is no perfomance penalty, no conflicts. Just add to gemfile
+```ruby
+gem 'korolev', require: 'korolev/core_ext'
+```
+And you will have `konstructor` method in all your classes. Until you
+call `konstructor` in your class, it is not affected in any other way. 
+
 ## Details
 
 In Ruby constructors are actually factories and it is a pair of class and instance methods. For motivation 

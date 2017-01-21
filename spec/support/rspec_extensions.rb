@@ -3,8 +3,15 @@ module RspecExtensions
   def let_klass(options = {}, &block)
     let(options[:name] || :klass) do
       inherit = options[:inherit] ? send(options[:inherit]) : Object
+      modules_to_include = Array(options[:include]).map { |module_var_name| send(module_var_name) }
 
-      Class.new(inherit, &block)
+      Class.new(inherit) do
+        modules_to_include.each do |mod|
+          include mod
+        end
+
+        class_exec(&block) if block_given?
+      end
     end
   end
 

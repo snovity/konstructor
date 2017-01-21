@@ -24,12 +24,12 @@ shared_examples "one custom constructor" do
     end
 
     context "private instance constructor method" do
-      let(:instance) { klass.alpha(1, 2) }
-      subject { instance.alpha(11, 22) }
+      let(:instance) { klass.new }
+      subject { instance.alpha(1, 2) }
 
       specify do
         expect_no_method_error
-        expect_instance_state nil, 1, 2, nil
+        expect_instance_state 0, nil, nil, nil
       end
     end
 

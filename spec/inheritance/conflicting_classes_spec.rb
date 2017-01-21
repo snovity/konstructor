@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative 'shared'
+require_relative '../shared'
 
 describe "Korolev.konstructor included when another module that adds method_added" do
 

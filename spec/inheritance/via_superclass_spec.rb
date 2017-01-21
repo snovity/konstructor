@@ -1,7 +1,7 @@
 require 'spec_helper'
-require_relative 'shared'
+require_relative '../shared'
 
-describe "Korolev.konstructor inheritance" do
+describe "Korolev.konstructor via superclass" do
 
   context "when no custom constructors" do
     let_korolev_klass(name: :base_klass) do

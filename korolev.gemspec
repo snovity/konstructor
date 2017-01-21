@@ -32,7 +32,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry-byebug', '~> 3.4'
   spec.add_development_dependency 'activesupport', '~> 4.2'
-  spec.add_development_dependency 'thor'
-  spec.add_development_dependency 'contracts'
-  spec.add_development_dependency 'constructable'
+
+  # to test conflicts, specifying precise versions since below version 1 and no semver guarantees
+  spec.add_development_dependency 'thor', '0.19.4'
+  spec.add_development_dependency 'contracts', '0.14.0'
+  #spec.add_development_dependency 'constructable'
 end

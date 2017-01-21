@@ -1,10 +1,10 @@
 require 'spec_helper'
-require_relative 'shared'
+require_relative '../shared'
 require 'active_support/concern'
 
-describe "Korolev.konstructor included when ActiveSupport::Concern" do
+describe "Korolev.konstructor via modules" do
 
-  context "is not used" do
+  context "without ActiveSupport::Concern" do
     let(:some_module) do
       Module.new do
         def self.name
@@ -20,7 +20,7 @@ describe "Korolev.konstructor included when ActiveSupport::Concern" do
     specify { expect_to_raise Korolev::IncludeInModuleError }
   end
 
-  context "is used" do
+  context "with ActiveSupport::Concern" do
     context "and konstructor via names" do
       let(:some_module) do
         Module.new do

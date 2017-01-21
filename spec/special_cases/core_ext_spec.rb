@@ -1,10 +1,11 @@
 require 'spec_helper'
-require_relative 'shared'
+require_relative '../shared'
+require 'korolev/core_ext'
 
-describe "Korolev.konstructor via next method" do
+describe "Korolev.konstructor without include" do
 
-  context "when one custom constructor" do
-    let_korolev_klass do
+  context "when one custom konstructor" do
+    let_klass do
       konstructor
       def_alpha
       def_betta
@@ -14,10 +15,12 @@ describe "Korolev.konstructor via next method" do
   end
 
   context "when two custom constructors" do
-    let_korolev_klass do
+    let_klass(name: :base_klass) do
       konstructor
       def_alpha
+    end
 
+    let_klass(inherit: :base_klass) do
       konstructor
       def_betta
     end
@@ -25,11 +28,14 @@ describe "Korolev.konstructor via next method" do
     include_examples "two custom constructors"
   end
 
-  context "when two custom constructors in when methods are marked private" do
-    let_korolev_klass do
+  context "when two custom constructors and redundant include" do
+    let_klass(name: :base_klass) do
       konstructor
-      private
       def_alpha
+    end
+
+    let_klass(inherit: :base_klass) do
+      include Korolev
 
       konstructor
       def_betta
@@ -37,6 +43,5 @@ describe "Korolev.konstructor via next method" do
 
     include_examples "two custom constructors"
   end
-
 
 end

@@ -1,29 +1,20 @@
 module Korolev
   class Konstructor
+
+    DEFAULT_CONSTRUCTOR_NAMES = [:new, :initialize]
+
     def initialize(klass)
       @klass = klass
-      @next_method_is_konstructor = nil
+      @konstructor_names = []
+      @next_method_is_konstructor = false
     end
 
-    def declare_konstructors(new_konstructor_names)
-      if new_konstructor_names.empty?
+    def declare_konstructors(new_names)
+      if new_names.empty?
         @next_method_is_konstructor = true
       else
-        @next_method_is_konstructor = nil
-        new_konstructor_names = new_konstructor_names.map(&:to_sym)
-        konstructor_names.concat(new_konstructor_names)
-
-        new_konstructor_names.each do |name|
-          method_defined = @klass.method_defined?(name) || @klass.private_method_defined?(name)
-          superclass_method_defined = @klass.respond_to?(:superclass) && (@klass.superclass.method_defined?(name) || @klass.superclass.private_method_defined?(name))
-          if method_defined && !superclass_method_defined
-            define_konstructor(name)
-          else
-            # not sure if konstructor ever will be defined,
-            # but want to inform the user about the problem anyway
-            validate_name(name)
-          end
-        end
+        @next_method_is_konstructor = false
+        process_new_names(new_names)
       end
     end
 
@@ -31,9 +22,10 @@ module Korolev
     # from the way private, protected works, if overriding method isn't repeatedly marked as private
     # it becomes public
     def declared_as_konstructor?(name)
-      return true if konstructor_names.include?(name)
+      return true if @konstructor_names.include?(name)
 
       current_klass = @klass
+      # trying to find superclass with Konstructor class instance
       while current_klass.respond_to?(:superclass) && current_klass.superclass.respond_to?(:konstructor, true)
         current_klass = current_klass.superclass
         konstructor = current_klass.instance_variable_get(:@konstructor)
@@ -49,8 +41,8 @@ module Korolev
       name = name.to_sym
 
       if @next_method_is_konstructor
-        konstructor_names << name
-        @next_method_is_konstructor = nil
+        @next_method_is_konstructor = false
+        @konstructor_names << name
         define_konstructor(name)
       elsif declared_as_konstructor?(name)
         define_konstructor(name)
@@ -59,8 +51,27 @@ module Korolev
 
     private
 
-    def konstructor_names
-      @konstructor_names ||= []
+    def process_new_names(new_names)
+      new_names = new_names.map(&:to_sym)
+      @konstructor_names.concat(new_names)
+
+      new_names.each do |name|
+        if has_own_method?(name)
+          define_konstructor(name)
+        else
+          # not sure if konstructor ever will be defined,
+          # but informing the user about the problem anyway
+          validate_name(name)
+        end
+      end
+    end
+
+    def has_own_method?(name)
+      method_defined = @klass.method_defined?(name) || @klass.private_method_defined?(name)
+      superclass_method_defined = @klass.respond_to?(:superclass) && (
+        @klass.superclass.method_defined?(name) || @klass.superclass.private_method_defined?(name)
+      )
+      method_defined && !superclass_method_defined
     end
 
     # this method is idempotent
@@ -87,7 +98,7 @@ module Korolev
     end
 
     def validate_name(name)
-      if [:new, :initialize].include?(name)
+      if DEFAULT_CONSTRUCTOR_NAMES.include?(name)
         raise DefaultConstructorError, name
       end
     end

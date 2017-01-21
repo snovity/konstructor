@@ -8,16 +8,13 @@ module Korolev
   module KonstructorMethod
     private
 
-    def konstructor(*new_konstructor_names)
+    def konstructor(*new_names)
       class << self
         include Korolev::MethodHook
       end
 
-      # experimental stuff
-      Korolev::MethodHook.ensure_not_overriden(self)
-
       @konstructor ||= Korolev::Konstructor.new(self)
-      @konstructor.declare_konstructors(new_konstructor_names)
+      @konstructor.declare_konstructors(new_names)
     end
   end
 

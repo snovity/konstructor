@@ -9,11 +9,15 @@ module Korolev
       super
     end
 
-    # This method protects against method_added overrides that are not calling super.
+    # Experimental method protecting against method_added overrides that
+    # are not calling super.
     # Since method_added hook is idempotent, there would be no harm done even if
-    # override actually has super and hook is called twice.
+    # override actually had super call and Korolev's hook would be called twice.
     def self.ensure_not_overriden(base)
-      return if base.method(:method_added).source_location.first.include?('korolev/method_hook')
+      def_file_path = base.method(:method_added).source_location.first
+      if def_file_path.include?('korolev/method_hook') || def_file_path.include?('korolev\method_hook')
+        return
+      end
 
       base.instance_exec do
         private
@@ -26,6 +30,9 @@ module Korolev
           orig_method_added(name)
         end
       end
+      true
+    rescue
+      false
     end
   end
 end

@@ -9,7 +9,7 @@ module Korolev
       @next_method_is_konstructor = false
     end
 
-    def declare_konstructors(new_names)
+    def declare(new_names)
       if new_names.empty?
         @next_method_is_konstructor = true
       else
@@ -21,7 +21,7 @@ module Korolev
     # once method is a konstructor, it is always a konstructor, this differs
     # from the way private, protected works, if overriding method isn't repeatedly marked as private
     # it becomes public
-    def declared_as_konstructor?(name)
+    def declared?(name)
       return true if @konstructor_names.include?(name)
 
       current_klass = @klass
@@ -30,7 +30,7 @@ module Korolev
         current_klass = current_klass.superclass
         konstructor = current_klass.instance_variable_get(:@konstructor)
         if konstructor
-          return konstructor.declared_as_konstructor?(name)
+          return konstructor.declared?(name)
         end
       end
 
@@ -43,9 +43,9 @@ module Korolev
       if @next_method_is_konstructor
         @next_method_is_konstructor = false
         @konstructor_names << name
-        define_konstructor(name)
-      elsif declared_as_konstructor?(name)
-        define_konstructor(name)
+        define(name)
+      elsif declared?(name)
+        define(name)
       end
     end
 
@@ -57,10 +57,10 @@ module Korolev
 
       new_names.each do |name|
         if has_own_method?(name)
-          define_konstructor(name)
+          define(name)
         else
           # not sure if konstructor ever will be defined,
-          # but informing the user about the problem anyway
+          # but informing about the problem anyway
           validate_name(name)
         end
       end
@@ -75,7 +75,7 @@ module Korolev
     end
 
     # this method is idempotent
-    def define_konstructor(name)
+    def define(name)
       validate_name(name)
       # not sure if this eval-less way is fully portable between interpreters
       # klass.define_singleton_method(name) do |*args, &block|

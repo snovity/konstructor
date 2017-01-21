@@ -12,7 +12,7 @@ module Korolev
       Korolev::SimpleMethodHook.setup(self)
 
       @konstructor ||= Korolev::Konstructor.new(self)
-      @konstructor.declare_konstructors(new_names)
+      @konstructor.declare(new_names)
     end
   end
 

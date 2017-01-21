@@ -1,6 +1,6 @@
 require 'korolev/version'
 require 'korolev/exceptions'
-require 'korolev/method_hook'
+require 'korolev/simple_method_hook'
 require 'korolev/konstructor'
 
 module Korolev
@@ -9,9 +9,7 @@ module Korolev
     private
 
     def konstructor(*new_names)
-      class << self
-        include Korolev::MethodHook
-      end
+      Korolev::SimpleMethodHook.setup(self)
 
       @konstructor ||= Korolev::Konstructor.new(self)
       @konstructor.declare_konstructors(new_names)

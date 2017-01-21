@@ -8,7 +8,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
   end
 
   context "via extend" do
-    module KorolevTestModuleOne
+    module KorolevCompetingExtend
       attr_reader :test_methods
 
       def method_added(name)
@@ -19,7 +19,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
 
     context "before Korolev" do
       let_klass do
-        extend KorolevTestModuleOne
+        extend KorolevCompetingExtend
         include Korolev
 
         attr_reader :zero, :one, :two, :three
@@ -46,7 +46,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
     context "after Korolev" do
       let_klass do
         include Korolev
-        extend KorolevTestModuleOne
+        extend KorolevCompetingExtend
 
         attr_reader :zero, :one, :two, :three
 
@@ -70,8 +70,8 @@ describe "Korolev.konstructor included when another module that adds method_adde
     end
   end
 
-  xcontext "via include" do
-    module KorolevTestModuleTwo
+  context "via include" do
+    module KorolevCompetingInclude
       def self.included(base)
         class << base
           attr_reader :test_methods
@@ -86,7 +86,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
 
     context "before Korolev via include" do
       let_klass do
-        include KorolevTestModuleTwo
+        include KorolevCompetingInclude
         include Korolev
 
         attr_reader :zero, :one, :two, :three
@@ -107,13 +107,14 @@ describe "Korolev.konstructor included when another module that adds method_adde
 
       specify { expect_working_module }
 
-      include_examples "one custom constructor"
+      # doesn't work without experimental hook setup
+      #include_examples "one custom constructor"
     end
 
     context "after Korolev via include" do
       let_klass do
         include Korolev
-        include KorolevTestModuleTwo
+        include KorolevCompetingInclude
 
         attr_reader :zero, :one, :two, :three
 
@@ -133,7 +134,8 @@ describe "Korolev.konstructor included when another module that adds method_adde
 
       specify { expect_working_module }
 
-      include_examples "one custom constructor"
+      # doesn't work without experimental hook setup
+      #include_examples "one custom constructor"
     end
   end
 

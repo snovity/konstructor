@@ -1,5 +1,4 @@
 
-
 shared_examples "one custom constructor" do
 
   context "instantiate" do

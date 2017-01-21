@@ -10,7 +10,7 @@ module Korolev
   class IncludeInModuleError < StandardError
     def initialize(base)
       super "Korolev can't be included in module '#{base.name}' directly, " +
-            "use included hook or ActiveSupport::Concern."
+            "please, use ActiveSupport::Concern or included hook directly."
     end
   end
 

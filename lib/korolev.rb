@@ -17,8 +17,8 @@ module Korolev
   end
 
   # Overriden append_features prevents default behavior
-  # of including all the constants, variables in the base class.
-  # It adds only one method konstructor.
+  # of including all the constants, variables to the base class.
+  # It adds only one method 'konstructor'.
   def self.append_features(base)
     unless base.is_a? Class
       raise IncludeInModuleError, base

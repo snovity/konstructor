@@ -46,9 +46,7 @@ describe "Korolev.konstructor included when ActiveSupport::Concern" do
 
       let_klass(include: :some_module) do
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
+        def_alpha
       end
 
       include_examples "two custom constructors"
@@ -78,9 +76,7 @@ describe "Korolev.konstructor included when ActiveSupport::Concern" do
 
       let_klass(include: :some_module) do
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
+        def_alpha
       end
 
       include_examples "two custom constructors"

@@ -16,16 +16,31 @@ describe "Korolev.konstructor inheritance" do
   end
 
   context "inherited methods marked as constructors in subclass" do
-    let_korolev_klass(name: :base_klass) do
-      def_alpha
-      def_betta
+    context "when Korolev is included in base class" do
+      let_korolev_klass(name: :base_klass) do
+        def_alpha
+        def_betta
+      end
+
+      let_klass(inherit: :base_klass) do
+        konstructor :alpha, :betta
+      end
+
+      include_examples "no custom constructors"
     end
 
-    let_klass(inherit: :base_klass) do
-      konstructor :alpha, :betta
-    end
+    context "when Korolev is included in subclass" do
+      let_klass(name: :base_klass) do
+        def_alpha
+        def_betta
+      end
 
-    include_examples "no custom constructors"
+      let_korolev_klass(inherit: :base_klass) do
+        konstructor :alpha, :betta
+      end
+
+      include_examples "no custom constructors"
+    end
   end
 
   context "inherited method overriden and marked as constructor in subclass" do

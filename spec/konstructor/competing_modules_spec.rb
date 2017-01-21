@@ -3,17 +3,13 @@ require_relative 'shared'
 
 describe "Korolev.konstructor included when another module that adds method_added" do
 
-  def expect_working_module
-    expect(klass.test_methods).to eq [:zero, :one, :two, :three, :initialize, :alpha, :betta]
-  end
-
   context "via extend" do
     module KorolevCompetingExtend
       attr_reader :test_methods
 
       def method_added(name)
         @test_methods ||= []
-        @test_methods << name
+        @test_methods << :"#{name}man"
       end
     end
 
@@ -22,20 +18,9 @@ describe "Korolev.konstructor included when another module that adds method_adde
         extend KorolevCompetingExtend
         include Korolev
 
-        attr_reader :zero, :one, :two, :three
-
-        def initialize
-          @zero = 0
-        end
-
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
-
-        def betta(three)
-          @three = three
-        end
+        def_alpha
+        def_betta
       end
 
       specify { expect_working_module }
@@ -48,20 +33,9 @@ describe "Korolev.konstructor included when another module that adds method_adde
         include Korolev
         extend KorolevCompetingExtend
 
-        attr_reader :zero, :one, :two, :three
-
-        def initialize
-          @zero = 0
-        end
-
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
-
-        def betta(three)
-          @three = three
-        end
+        def_alpha
+        def_betta
       end
 
       specify { expect_working_module }
@@ -78,7 +52,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
 
           def method_added(name)
             @test_methods ||= []
-            @test_methods << name
+            @test_methods << :"#{name}man"
           end
         end
       end
@@ -89,26 +63,16 @@ describe "Korolev.konstructor included when another module that adds method_adde
         include KorolevCompetingInclude
         include Korolev
 
-        attr_reader :zero, :one, :two, :three
-
-        def initialize
-          @zero = 0
-        end
-
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
-
-        def betta(three)
-          @three = three
-        end
+        def_alpha
+        def_betta
       end
 
       specify { expect_working_module }
 
       # doesn't work without experimental hook setup
       #include_examples "one custom constructor"
+      include_examples "no custom constructors"
     end
 
     context "after Korolev via include" do
@@ -116,26 +80,16 @@ describe "Korolev.konstructor included when another module that adds method_adde
         include Korolev
         include KorolevCompetingInclude
 
-        attr_reader :zero, :one, :two, :three
-
-        def initialize
-          @zero = 0
-        end
-
         konstructor
-        def alpha(one, two)
-          @one, @two = one, two
-        end
-
-        def betta(three)
-          @three = three
-        end
+        def_alpha
+        def_betta
       end
 
       specify { expect_working_module }
 
       # doesn't work without experimental hook setup
       #include_examples "one custom constructor"
+      include_examples "no custom constructors"
     end
   end
 

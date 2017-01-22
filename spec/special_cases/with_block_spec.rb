@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Korolev.konstructor when block is given" do
+describe "konstructor when block is given" do
 
-  let_korolev_klass do
+  let_konstructor_klass do
     konstructor
     def alpha(one, two)
       @one, @two = one, two

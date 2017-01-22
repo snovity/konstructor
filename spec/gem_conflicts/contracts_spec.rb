@@ -1,8 +1,8 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'korolev/core_ext'
+require 'konstructor/core_ext'
 
-describe "Korolev with contracts.ruby" do
+describe "Konstructor with contracts.ruby" do
 
   # Contracts seem not to work with any kind of class metaprogramming,
   # so defining regular classes

@@ -1,18 +1,17 @@
-module Korolev
+module Konstructor
   module SimpleMethodHook
 
     private
 
     def method_added(name)
-      @konstructor ||= Konstructor.new(self)
-      @konstructor.method_added_to_klass(name)
+      Konstructor.method_added_to_klass(self, name)
       super
     end
 
     def self.setup(base)
       class << base
         # Ruby itself checks against double include
-        include Korolev::SimpleMethodHook
+        include Konstructor::SimpleMethodHook
       end
     end
 

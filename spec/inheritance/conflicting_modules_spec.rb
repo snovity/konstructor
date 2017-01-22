@@ -1,10 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
 
-describe "Korolev.konstructor included when another module that adds method_added" do
+describe "konstructor included when another module that adds method_added" do
 
   context "without super via extend" do
-    module KorolevCompetingExtend
+    module KonstructorCompetingExtend
       attr_reader :test_methods
 
       def method_added(name)
@@ -13,10 +13,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       end
     end
 
-    context "before Korolev" do
+    context "before Konstructor" do
       let_klass do
-        extend KorolevCompetingExtend
-        include Korolev
+        extend KonstructorCompetingExtend
+        include Konstructor
 
         konstructor
         def_alpha
@@ -28,10 +28,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       include_examples "one custom constructor"
     end
 
-    context "after Korolev" do
+    context "after Konstructor" do
       let_klass do
-        include Korolev
-        extend KorolevCompetingExtend
+        include Konstructor
+        extend KonstructorCompetingExtend
 
         konstructor
         def_alpha
@@ -45,7 +45,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
   end
 
   context "with super via include" do
-    module KorolevCompetingIncludeSuper
+    module KonstructorCompetingIncludeSuper
       def self.included(base)
         class << base
           attr_reader :test_methods
@@ -59,10 +59,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       end
     end
 
-    context "before Korolev via include" do
+    context "before Konstructor via include" do
       let_klass do
-        include KorolevCompetingIncludeSuper
-        include Korolev
+        include KonstructorCompetingIncludeSuper
+        include Konstructor
 
         konstructor
         def_alpha
@@ -74,10 +74,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       include_examples "one custom constructor"
     end
 
-    context "after Korolev via include" do
+    context "after Konstructor via include" do
       let_klass do
-        include Korolev
-        include KorolevCompetingIncludeSuper
+        include Konstructor
+        include KonstructorCompetingIncludeSuper
 
         konstructor
         def_alpha
@@ -91,7 +91,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
   end
 
   context "without super via include" do
-    module KorolevCompetingInclude
+    module KonstructorCompetingInclude
       def self.included(base)
         class << base
           attr_reader :test_methods
@@ -104,10 +104,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       end
     end
 
-    context "before Korolev via include" do
+    context "before Konstructor via include" do
       let_klass do
-        include KorolevCompetingInclude
-        include Korolev
+        include KonstructorCompetingInclude
+        include Konstructor
 
         konstructor
         def_alpha
@@ -121,10 +121,10 @@ describe "Korolev.konstructor included when another module that adds method_adde
       include_examples "no custom constructors"
     end
 
-    context "after Korolev via include" do
+    context "after Konstructor via include" do
       let_klass do
-        include Korolev
-        include KorolevCompetingInclude
+        include Konstructor
+        include KonstructorCompetingInclude
 
         konstructor
         def_alpha

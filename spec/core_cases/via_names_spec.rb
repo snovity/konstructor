@@ -1,10 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
 
-describe "Korolev.konstructor via names" do
+describe "konstructor via names" do
 
   context "when no custom constructors" do
-    let_korolev_klass do
+    let_konstructor_klass do
       def_alpha
       def_betta
     end
@@ -13,7 +13,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when one custom constructor" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha
       def_alpha
       def_betta
@@ -23,7 +23,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two constructor declarations for the same method before it" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha
       konstructor :alpha
       def_alpha
@@ -34,7 +34,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two constructor declarations for the same method before and after it" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha
       def_alpha
       konstructor :alpha
@@ -46,7 +46,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two custom constructors before method definitions" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha, :betta
 
       def_alpha
@@ -57,7 +57,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two custom constructors in the middle of method definitions" do
-    let_korolev_klass do
+    let_konstructor_klass do
       def_alpha
 
       konstructor :alpha, :betta
@@ -69,7 +69,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two custom constructors after method definitions" do
-    let_korolev_klass do
+    let_konstructor_klass do
       def_alpha
       def_betta
 
@@ -80,7 +80,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when two custom constructors in two different calls" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha
       konstructor :betta
 
@@ -92,7 +92,7 @@ describe "Korolev.konstructor via names" do
   end
 
   context "when methods are private" do
-    let_korolev_klass do
+    let_konstructor_klass do
       private
 
       def_alpha

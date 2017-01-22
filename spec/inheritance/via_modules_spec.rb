@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../shared'
 require 'active_support/concern'
 
-describe "Korolev.konstructor via modules" do
+describe "konstructor via modules" do
 
   context "without ActiveSupport::Concern" do
     let(:some_module) do
@@ -11,13 +11,13 @@ describe "Korolev.konstructor via modules" do
           'SomeModule'
         end
 
-        include Korolev
+        include Konstructor
       end
     end
 
     subject { some_module }
 
-    specify { expect_to_raise Korolev::IncludeInModuleError }
+    specify { expect_to_raise Konstructor::IncludeInModuleError }
   end
 
   context "with ActiveSupport::Concern" do
@@ -27,7 +27,7 @@ describe "Korolev.konstructor via modules" do
           extend ActiveSupport::Concern
 
           included do
-            include Korolev
+            include Konstructor
 
             konstructor :betta
           end
@@ -58,7 +58,7 @@ describe "Korolev.konstructor via modules" do
           extend ActiveSupport::Concern
 
           included do
-            include Korolev
+            include Konstructor
 
             konstructor
             def betta(three)

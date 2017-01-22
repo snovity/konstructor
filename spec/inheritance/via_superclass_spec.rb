@@ -1,10 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
 
-describe "Korolev.konstructor via superclass" do
+describe "Konstructor.konstructor via superclass" do
 
   context "when no custom constructors" do
-    let_korolev_klass(name: :base_klass) do
+    let_konstructor_klass(name: :base_klass) do
       def_alpha
     end
 
@@ -16,8 +16,8 @@ describe "Korolev.konstructor via superclass" do
   end
 
   context "inherited methods marked as constructors in subclass" do
-    context "when Korolev is included in base class" do
-      let_korolev_klass(name: :base_klass) do
+    context "when Konstructor is included in base class" do
+      let_konstructor_klass(name: :base_klass) do
         def_alpha
         def_betta
       end
@@ -29,13 +29,13 @@ describe "Korolev.konstructor via superclass" do
       include_examples "no custom constructors"
     end
 
-    context "when Korolev is included in subclass" do
+    context "when Konstructor is included in subclass" do
       let_klass(name: :base_klass) do
         def_alpha
         def_betta
       end
 
-      let_korolev_klass(inherit: :base_klass) do
+      let_konstructor_klass(inherit: :base_klass) do
         konstructor :alpha, :betta
       end
 
@@ -44,7 +44,7 @@ describe "Korolev.konstructor via superclass" do
   end
 
   context "inherited method overriden and marked as constructor in subclass" do
-    let_korolev_klass(name: :base_klass) do
+    let_konstructor_klass(name: :base_klass) do
       def_alpha
       def_betta
     end
@@ -75,7 +75,7 @@ describe "Korolev.konstructor via superclass" do
   end
 
   context "when one custom constructor is inherited from base class" do
-    let_korolev_klass(name: :base_klass) do
+    let_konstructor_klass(name: :base_klass) do
       konstructor
       def_alpha
       def_betta
@@ -87,7 +87,7 @@ describe "Korolev.konstructor via superclass" do
   end
 
   context "when one custom constructor from base class is overriden" do
-    let_korolev_klass(name: :base_klass) do
+    let_konstructor_klass(name: :base_klass) do
       konstructor
       def_alpha
       def_betta
@@ -118,7 +118,7 @@ describe "Korolev.konstructor via superclass" do
   end
 
   context "when two custom constructors are inherited from base class" do
-    let_korolev_klass(name: :base_klass) do
+    let_konstructor_klass(name: :base_klass) do
       konstructor :alpha, :betta
       def_alpha
       def_betta

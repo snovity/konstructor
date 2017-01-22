@@ -36,9 +36,9 @@ module RspecExtensions
     end
   end
 
-  def let_korolev_klass(options = {}, &block)
+  def let_konstructor_klass(options = {}, &block)
     let_klass(options) do
-      include Korolev
+      include Konstructor
 
       class_exec(&block)
     end

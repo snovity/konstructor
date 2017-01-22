@@ -1,8 +1,8 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'korolev/core_ext'
+require 'konstructor/core_ext'
 
-describe "Korolev.konstructor without include" do
+describe "konstructor without include" do
 
   context "when one custom konstructor" do
     let_klass do
@@ -35,7 +35,7 @@ describe "Korolev.konstructor without include" do
     end
 
     let_klass(inherit: :base_klass) do
-      include Korolev
+      include Konstructor
 
       konstructor
       def_betta

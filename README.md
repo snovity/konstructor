@@ -1,18 +1,18 @@
-# Korolev
+# Konstructor
 
 Minimalistic gem
 
-Korolev allows you to have multiple constructors in Ruby with just one
+Konstructor allows you to have multiple constructors in Ruby with just one
 simple declaration.
 
-Custom constructors are called `konstructors` in Korolev.
+Custom constructors are called `konstructors` in Konstructor.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'korolev'
+gem 'konstructor'
 ```
 
 And then execute:
@@ -21,11 +21,11 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install korolev
+    $ gem install konstructor
 
 ## Usage
 
-Constructors defined with Korolev work the same way as real Ruby 
+Constructors defined with Konstructor work the same way as real Ruby 
 construtors in all senses.
  
 konstructor call implies private, i.e. all constructors will be private methods even if they
@@ -62,10 +62,10 @@ all additional constructors. It will return true even if there is not such konst
 
 ### Using with other gems
 
-Korolev doesn't affect other gems in any way, even those that heavily depend on metaprogramming,
+Konstructor doesn't affect other gems in any way, even those that heavily depend on metaprogramming,
 such as rake, thor, contracts, etc.
 
-You can use Korolev with contracts gem, like that:
+You can use Konstructor with contracts gem, like that:
 ```ruby
   class YourClass
     konstructor
@@ -76,23 +76,27 @@ You can use Korolev with contracts gem, like that:
   end    
 ```
   
-And also it makes little sense, you can user `korolev` inside rake and 
+And also it makes little sense, you can user `konstructor` inside rake and 
 thor classes when defining commands and tasks.
 
-If you stumble upon a metaprogramming gem that Korolev conflicts with,
+If you stumble upon a metaprogramming gem that Konstructor conflicts with,
 please open [an issue](LINK TO NEW ISSUE). 
   
 ### Getting rid of includes
   
-It is safe to include Korolev method into core Class, 
+It is safe to include Konstructor method into core Class, 
 there is no perfomance penalty of any kind.
 Add `require` to your gemfile declaration: 
 
 ```ruby
-gem 'korolev', require: 'korolev/core_ext'
+gem 'konstructor', require: 'konstructor/core_ext'
 ```
-After that you can remove all `include Korolev` declarations and
+After that you can remove all `include Konstructor` declarations and
 still have `konstructor` method in all your classes. 
+
+### Thread safety
+
+Konstructor is threadsafe
 
 ## Details
 
@@ -107,7 +111,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/snovity/korolev. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/snovity/konstructor. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

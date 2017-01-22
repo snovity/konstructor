@@ -1,31 +1,5 @@
-module Korolev
-  class Konstructor
-
-    DEFAULT_NAMES = [:initialize]
-    RESERVED_NAMES = [:new, :initialize]
-
-    class << self
-      def reserved?(name)
-        RESERVED_NAMES.include?(name.to_sym)
-      end
-
-      def default?(name)
-        DEFAULT_NAMES.include?(name.to_sym)
-      end
-
-      def declared?(klass, name)
-        konstructor = klass.instance_variable_get(:@konstructor)
-        if konstructor
-          konstructor.declared?(name.to_sym)
-        else
-          false
-        end
-      end
-
-      def is?(klass, name)
-        default?(name) || declared?(klass, name)
-      end
-    end
+module Konstructor
+  class Factory
 
     def initialize(klass)
       @klass = klass

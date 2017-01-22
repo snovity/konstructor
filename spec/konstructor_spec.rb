@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe Korolev do
+describe Konstructor do
   it "has a version number" do
-    expect(Korolev::VERSION).not_to be nil
+    expect(Konstructor::VERSION).not_to be nil
   end
 
-  context ".is_konstructor?" do
-    subject { Korolev.is_konstructor?(klass, name) }
+  context ".is?" do
+    subject { Konstructor.is?(klass, name) }
 
     context "for single class" do
-      let_korolev_klass do
+      let_konstructor_klass do
         konstructor
         def_alpha
         def_betta

@@ -1,3 +1,3 @@
-module Korolev
+module Konstructor
   VERSION = '0.1.0'
 end

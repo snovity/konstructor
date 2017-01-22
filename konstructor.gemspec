@@ -2,11 +2,11 @@
 # TODO: replace with require_relative
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'korolev/version'
+require 'konstructor/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'korolev'
-  spec.version       = Korolev::VERSION
+  spec.name          = 'konstructor'
+  spec.version       = Konstructor::VERSION
   spec.authors       = ['Dima Lashkov']
   spec.email         = ['dm.lashkov@gmail.com']
 

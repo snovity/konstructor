@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'korolev/core_ext'
+require 'konstructor/core_ext'
 
-describe "Korolev with Thor" do
+describe "Konstructor with Thor" do
 
   let(:base_class) { Thor }
 
-  shared_examples "compatible Korolev and Thor" do
-    context "via Korolev" do
+  shared_examples "compatible Konstructor and Thor" do
+    context "via Konstructor" do
      let(:instance) { klass.alpha(1, 2) }
 
      specify { expect_instance_state nil, 1, 2, nil }
@@ -31,7 +31,7 @@ describe "Korolev with Thor" do
       end
     end
 
-    include_examples "compatible Korolev and Thor"
+    include_examples "compatible Konstructor and Thor"
   end
 
   context "when command comes before konstructor" do
@@ -46,7 +46,7 @@ describe "Korolev with Thor" do
       def_alpha
     end
 
-    include_examples "compatible Korolev and Thor"
+    include_examples "compatible Konstructor and Thor"
   end
 
 end

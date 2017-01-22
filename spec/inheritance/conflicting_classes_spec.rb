@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../shared'
 
-describe "Korolev.konstructor included when another module that adds method_added" do
+describe "konstructor included when another module that adds method_added" do
 
   context "when base class uses method_added" do
     let_klass(name: :base_klass) do
@@ -15,7 +15,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
       end
     end
 
-    let_korolev_klass(inherit: :base_klass) do
+    let_konstructor_klass(inherit: :base_klass) do
       konstructor
       def_alpha
       def_betta
@@ -25,7 +25,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
   end
 
   context "when current class uses method added with super" do
-    let_korolev_klass do
+    let_konstructor_klass do
       class << self
         attr_reader :test_methods
 
@@ -47,7 +47,7 @@ describe "Korolev.konstructor included when another module that adds method_adde
   end
 
   context "when current class uses method added without super" do
-    let_korolev_klass do
+    let_konstructor_klass do
       class << self
         attr_reader :test_methods
 

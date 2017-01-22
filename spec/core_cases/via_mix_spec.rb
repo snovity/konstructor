@@ -1,10 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
 
-describe "Korolev.konstructor mixed" do
+describe "konstructor mixed" do
 
   context "when one custom constructor" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor
       konstructor :alpha
       def_betta
@@ -15,7 +15,7 @@ describe "Korolev.konstructor mixed" do
   end
 
   context "when two custom constructors" do
-    let_korolev_klass do
+    let_konstructor_klass do
       konstructor :alpha
       def_alpha
 
@@ -27,7 +27,7 @@ describe "Korolev.konstructor mixed" do
   end
 
   context "when two custom constructors" do
-    let_korolev_klass do
+    let_konstructor_klass do
       def_alpha
 
       konstructor :alpha
@@ -39,7 +39,7 @@ describe "Korolev.konstructor mixed" do
   end
 
   context "when two custom constructors" do
-    let_korolev_klass do
+    let_konstructor_klass do
       def_alpha
 
       konstructor

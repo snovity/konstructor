@@ -1,4 +1,4 @@
-module Korolev
+module Konstructor
 
   class ReservedNameError < StandardError
     def initialize(name)
@@ -9,7 +9,7 @@ module Korolev
 
   class IncludeInModuleError < StandardError
     def initialize(base)
-      super "Korolev can't be included in module '#{base.name}' directly, " +
+      super "Konstructor can't be included in module '#{base.name}' directly, " +
             "please, use ActiveSupport::Concern or included hook directly."
     end
   end

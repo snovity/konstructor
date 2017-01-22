@@ -1,133 +1,208 @@
 # Konstructor
 
-Minimalistic gem
+Konstructor is a small gem that gives you multiple
+constructors in Ruby.
 
-Konstructor allows you to have multiple constructors in Ruby with just one
-simple declaration.
+To define custom constructors use `konstructor` keyword:
+```ruby
+class SomeClass
+  konstructor
+  def create(val)
+    @val = val
+  end 
+  
+  attr_reader :val
+end
 
-Custom constructors are called `konstructors` in Konstructor.
+obj0 = SomeClass.new
+obj0.val # nil
+
+obj1 = SomeClass.create(3)
+obj1.val # 3
+```
+It's similar to having overloaded constructors in other languages.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Via Gemfile:
 
 ```ruby
-gem 'konstructor'
+gem 'konstructor' #, require: 'konstructor/core_ext' 
 ```
 
-And then execute:
+and then execute `bundle`. 
 
-    $ bundle
+Uncomment require option to skip adding 
+`include Konstructor` every time you want to use `konstructor` keyword. 
 
-Or install it yourself as:
+You can also install it without Bundler:
 
     $ gem install konstructor
 
 ## Usage
 
-Constructors defined with Konstructor work the same way as real Ruby 
-construtors in all senses.
+When no names are given `konstructor` just affects the next method:
+
+ ```ruby
+ konstructor
+ def create
+ end
  
-konstructor call implies private, i.e. all constructors will be private methods even if they
-are declared as public.
+ konstructor
+ def recreate
+ end
+ ```
+ 
+ When names are given, it makes those methods konstructors:
+ 
+ ```ruby
+ konstructor :create, :recreate
+ 
+ def create
+ end
+ 
+ def recreate
+ end
+ ```
+ 
+ Call with names can be placed anywhere in class definition:
+ 
+ ```ruby
+  def create
+  end
+  konstructor :create
+  
+  konstructor
+  def recreate
+  end
+ ```
+ 
+ In all above cases the class will have the default constructor 
+ and two custom ones:
+ 
+ ```ruby
+ obj0 = SomeClass.new
+ obj1 = SomeClass.create
+ obj2 = SomeClass.recreate
+ ```
+ 
+Konstructors work exactly the same way as real Ruby constructors.
+You can pass a blocks to them: 
+```ruby
+konstructor
+def create(val)
+  @val = yield val
+end
+```
+and then
+```
+obj = SomeClass.create(3) { |v| v*3 }
+obj.val # 9
+```
+You can override them in subclasses. Once method is a marked as 
+konstructor in hierarchy, it is always a konstructor.
+                                   
+Methods inherited from superclass can't become konstructors in 
+subclasses. To achieve the effect, define a new method, 
+mark it as konstructor and call the inherited one. 
 
-You can place call to konstructor with names anywhere. It works similar to private, 
-public calls, you can use it with symbol or without.
-When used without, it will affect only the next method. When used with name, 
-it can be used before and after method definition. Named and nameless declarations can be mixed.
+### Reserved names
 
-Passing of blocks also works.
-
-Using reserved method names 'new' and 'initialize' for custom constructor definition will raise an error.
-
-### Inheritance
-
-Since konstructor is a instance method, you can override it in subclass and call super as usual. Once method is
-a marked constructor in hierarchy, it is always a constructor.
-
-Inherited methods can't be to constructor in subclass, you should define a new constructor in subclass
-and reuse inherited method.
+Using reserved method names `new` and `initialize` for custom 
+constructor definition will raise an error:
+```ruby
+konstructor
+def initialize # exception
+end
+```
+or
+```ruby
+konstructor
+def new # exception
+end
+```
 
 ### Defining konstructors in Modules
 
-Use ActiveSupport::Concern and define constructor in your ClassMethods or write on inlcuded hook manually.
-
-### Reserved names
-Reserved konstructor names are `new` and `initialize`, since they are used by default constructor.
-
-### is_konstrutor?
-
-You can always check if certain instnace method name is a constructor. It will return true for `initialize` and
-all additional constructors. It will return true even if there is not such konstructor has been defined yet.
+Modules can't have konstructors. Use `ActiveSupport::Concern` and 
+define konstructor in `included` block.
 
 ### Using with other gems
 
-Konstructor doesn't affect other gems in any way, even those that heavily depend on metaprogramming,
-such as rake, thor, contracts, etc.
+Konstructor doesn't affect other gems, including those
+that depend on metaprogramming, such as rake, thor, contracts, etc.
 
-You can use Konstructor with contracts gem, like that:
+For instnace, Konstructor works with contracts gem:
 ```ruby
-  class YourClass
+  class SomeClass
     konstructor
-    Contract Num => YourClass
+    Contract Num => SomeClass
     def create(some_number)
       @number = some_number
     end
   end    
 ```
   
-And also it makes little sense, you can user `konstructor` inside rake and 
-thor classes when defining commands and tasks.
+If you stumble upon a metaprogramming gem that 
+conflicts with Konstructor, please open an issue.
 
-If you stumble upon a metaprogramming gem that Konstructor conflicts with,
-please open [an issue](LINK TO NEW ISSUE).
- 
-### Performance
- 
-Konstructor does it's work the moment class is defined. 
-There is no perfomance hit during runtime. 
-Perfomance hit for a Rails project so far couldn't be detected. 
+### Removing default constructor
 
-For comparison with attr_accessor, which work in similar way to konstructor.
-  
-### Thread safety
-  
-Konstructor is thread safe.  
-  
-### Getting rid of includes
-  
-MOVE TO THE START:  
-It is safe to include Konstructor method into core Class, 
-there is no perfomance penalty of any kind.
-Add `require` to your gemfile declaration: 
-
+You can remove default Ruby construtor by marking it as private:
 ```ruby
-gem 'konstructor', require: 'konstructor/core_ext'
+private_class_method :new
 ```
-After that you can remove all `include Konstructor` declarations and
-still have `konstructor` method in all your classes. 
+ 
+## Performance
+ 
+Konstructor does all its work when class is being defined. Once class
+has been defined, it's just standard Ruby instance creation.
+Therefore there is no perfomance hit during runtime. 
 
-### Thread safety
-
-Konstructor is threadsafe.
-
+Perfomance hit for startup time wasn't measured yet, but 
+it should be comparable to the one of `attr_accessor` or 
+`ActiveSupport::Concern`. 
+  
+## Thread safety
+  
+Konstructor is thread safe.
+  
 ## Details
 
-In Ruby constructors are actually factories and it is a pair of class and instance methods. For motivation 
-behind such approach and an step by step explanation of how gem works you can read this article.
+In Ruby constructor is a pair of public class factory method 
+and private instance method. Therefore, `konstructor` marks 
+instance method as private and defines a corresponding public class 
+method with the same name.
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can check if certain instance method name has been declared as 
+constructor or is a default constructor by running.
+```ruby
+Konstructor.is?(SomeClass, :initialize) # true
+Konstructor.is?(SomeClass, :create) # true
+Konstructor.is?(SomeClass, :recreate) # true
+Konstructor.is?(SomeClass, :something_else) # false
+``` 
+ 
+It will return true even if there is not such constructor has 
+been defined yet. Like:
+```ruby
+class SomeClass
+  konstructor :create
+end
+```
+Konstructor body may be supplied in subclasses.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/snovity/konstructor. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at 
+https://github.com/snovity/konstructor. This project is intended to be
+a safe, welcoming space for collaboration, and contributors are 
+expected to adhere to the 
+[Contributor Covenant](http://contributor-covenant.org) 
+code of conduct.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the 
+[MIT License](http://opensource.org/licenses/MIT).
 

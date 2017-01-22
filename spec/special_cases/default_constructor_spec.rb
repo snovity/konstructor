@@ -10,7 +10,7 @@ describe "Korolev.konstructor when default constructor name" do
         konstructor :new
       end
 
-      specify { expect_to_raise Korolev::DefaultConstructorError }
+      specify { expect_to_raise Korolev::ReservedNameError }
     end
 
     context "via next method when method will be defined" do
@@ -21,7 +21,7 @@ describe "Korolev.konstructor when default constructor name" do
         end
       end
 
-      specify { expect_to_raise Korolev::DefaultConstructorError }
+      specify { expect_to_raise Korolev::ReservedNameError }
     end
   end
 
@@ -31,7 +31,7 @@ describe "Korolev.konstructor when default constructor name" do
         konstructor :initialize
       end
 
-      specify { expect_to_raise Korolev::DefaultConstructorError }
+      specify { expect_to_raise Korolev::ReservedNameError }
     end
 
     context "via next method when method will be redifined" do
@@ -42,7 +42,7 @@ describe "Korolev.konstructor when default constructor name" do
         end
       end
 
-      specify { expect_to_raise Korolev::DefaultConstructorError }
+      specify { expect_to_raise Korolev::ReservedNameError }
     end
   end
 

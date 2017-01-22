@@ -8,6 +8,7 @@ module Korolev
   module KonstructorMethod
     private
 
+    # TODO: ADD DOCS
     def konstructor(*new_names)
       Korolev::SimpleMethodHook.setup(self)
 
@@ -25,6 +26,11 @@ module Korolev
     end
 
     base.extend(KonstructorMethod)
+  end
+
+  # TODO: ADD DOCS
+  def self.is_konstructor?(klass, method_name)
+    Konstructor.is?(klass, method_name)
   end
 
 end

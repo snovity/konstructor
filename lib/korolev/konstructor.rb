@@ -1,7 +1,31 @@
 module Korolev
   class Konstructor
 
-    DEFAULT_CONSTRUCTOR_NAMES = [:new, :initialize]
+    DEFAULT_NAMES = [:initialize]
+    RESERVED_NAMES = [:new, :initialize]
+
+    class << self
+      def reserved?(name)
+        RESERVED_NAMES.include?(name.to_sym)
+      end
+
+      def default?(name)
+        DEFAULT_NAMES.include?(name.to_sym)
+      end
+
+      def declared?(klass, name)
+        konstructor = klass.instance_variable_get(:@konstructor)
+        if konstructor
+          konstructor.declared?(name.to_sym)
+        else
+          false
+        end
+      end
+
+      def is?(klass, name)
+        default?(name) || declared?(klass, name)
+      end
+    end
 
     def initialize(klass)
       @klass = klass
@@ -22,19 +46,7 @@ module Korolev
     # from the way private, protected works, if overriding method isn't repeatedly marked as private
     # it becomes public
     def declared?(name)
-      return true if @konstructor_names.include?(name)
-
-      current_klass = @klass
-      # trying to find superclass with Konstructor class instance
-      while current_klass.respond_to?(:superclass) && current_klass.superclass.respond_to?(:konstructor, true)
-        current_klass = current_klass.superclass
-        konstructor = current_klass.instance_variable_get(:@konstructor)
-        if konstructor
-          return konstructor.declared?(name)
-        end
-      end
-
-      false
+      declared_in_self?(name) || declared_in_superclass?(name)
     end
 
     def method_added_to_klass(name)
@@ -50,6 +62,22 @@ module Korolev
     end
 
     private
+
+    def declared_in_self?(name)
+      @konstructor_names.include?(name.to_sym)
+    end
+
+    def declared_in_superclass?(name)
+      current_klass = @klass
+
+      # looking for superclass with Konstructor class instance
+      while current_klass.respond_to?(:superclass) && current_klass.superclass.respond_to?(:konstructor, true)
+        current_klass = current_klass.superclass
+        return true if Konstructor.declared?(current_klass, name)
+      end
+
+      false
+    end
 
     def process_new_names(new_names)
       new_names = new_names.map(&:to_sym)
@@ -77,13 +105,7 @@ module Korolev
     # this method is idempotent
     def define(name)
       validate_name(name)
-      # not sure if this eval-less way is fully portable between interpreters
-      # klass.define_singleton_method(name) do |*args, &block|
-      #   instance = allocate
-      #   instance.send(name, *args, &block)
-      #   instance
-      # end
-
+      
       # defining class method
       @klass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
         def #{name}(*args, &block)
@@ -98,8 +120,8 @@ module Korolev
     end
 
     def validate_name(name)
-      if DEFAULT_CONSTRUCTOR_NAMES.include?(name)
-        raise DefaultConstructorError, name
+      if Konstructor.reserved?(name)
+        raise ReservedNameError, name
       end
     end
   end

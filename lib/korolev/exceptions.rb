@@ -1,6 +1,6 @@
 module Korolev
 
-  class DefaultConstructorError < StandardError
+  class ReservedNameError < StandardError
     def initialize(name)
       super "Custom constructor can't have name '#{name}', "
             "it is reserved for default constructor."

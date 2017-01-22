@@ -50,6 +50,14 @@ and reuse inherited method.
 
 Use ActiveSupport::Concern and define constructor in your ClassMethods or write on inlcuded hook manually.
 
+### Reserved names
+Reserved konstructor names are `new` and `initialize`, since they are used by default constructor.
+
+### is_konstrutor?
+
+You can always check if certain instnace method name is a constructor. It will return true for `initialize` and
+all additional constructors. It will return true even if there is not such konstructor has been defined yet.
+
 ### Conflicts with other gems
 
 Korolev written way that avoid any conflict with other gem. If you find a gem that Korolev conflicts with, please

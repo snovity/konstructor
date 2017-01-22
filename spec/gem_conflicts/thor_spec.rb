@@ -9,12 +9,19 @@ describe "Korolev.konstructor included when ActiveSupport::Concern" do
   let_klass(inherit: :base_class) do
     konstructor
     def_alpha
-    def_betta
+
+    no_commands do
+      def_betta
+    end
 
     desc 'com1', 'Just a test'
     def comone(oh)
       "received #{oh}"
     end
+  end
+
+  specify do
+
   end
 
   include_examples "one custom constructor"

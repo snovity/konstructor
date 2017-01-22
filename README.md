@@ -60,28 +60,33 @@ Reserved konstructor names are `new` and `initialize`, since they are used by de
 You can always check if certain instnace method name is a constructor. It will return true for `initialize` and
 all additional constructors. It will return true even if there is not such konstructor has been defined yet.
 
-### Conflicts with other gems
+### Using with other gems
 
-Korolev doesn't affect other gems in any way, even those that realy heavily on metaprogramming,
+Korolev doesn't affect other gems in any way, even those that heavily depend on metaprogramming,
 such as rake, thor, contracts, etc.
- 
-Nevertheless, there is a special case. Thor has a hook `initialize_added` that let's add behavior 
-to CLI class once default constructor is defined. It won't be fired when custom constructor
 
-Korolev works with gems that use the same metaprogramming approach, such as 
-
-When you include Korolev only one method `konstructor` is defined. 
-Until method `konstructor` is called in class, the class is not affected any other way.
+You can use Korolev with contracts gem, like that:
+```ruby
+  class YourClass
+    konstructor
+    Contract Num => YourClass
+    def create(some_number)
+      @number = some_number
+    end
+  end    
+```
   
-If you find a gem that Korolev conflicts with, please
-open an issue and give an example code. 
+And also it makes little sense, you can user `korolev` inside rake and 
+thor classes when defining commands and tasks.
 
-And also it makes little sense, you can user `korolev` inside rake and thor classes when defining commands and tasks.
+If you stumble upon a metaprogramming gem that Korolev conflicts with,
+please open [an issue](LINK TO NEW ISSUE). 
   
 ### Getting rid of includes
   
 It is safe to include Korolev method into core Class, 
-there is no perfomance penalty or conflicts. Just add this to gemfile: 
+there is no perfomance penalty of any kind.
+Add `require` to your gemfile declaration: 
 
 ```ruby
 gem 'korolev', require: 'korolev/core_ext'

@@ -15,12 +15,6 @@ module RspecExtensions
           end
         end
 
-        # @klass_name = klass_name.to_s
-        #
-        # def self.name
-        #   @klass_name
-        # end
-
         def self.def_alpha
           def alpha(one, two)
             @one, @two = one, two

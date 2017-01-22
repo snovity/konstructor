@@ -86,23 +86,30 @@ When no names are given `konstructor` just affects the next method:
  obj2 = SomeClass.recreate
  ```
  
+### Same as default constructor
+ 
 Konstructors work exactly the same way as real Ruby constructors.
 You can pass a blocks to them: 
+
 ```ruby
 konstructor
 def create(val)
   @val = yield val
 end
 ```
+
 and then
-```
+
+```ruby
 obj = SomeClass.create(3) { |v| v*3 }
 obj.val # 9
 ```
-You can override them in subclasses. Once method is a marked as 
-konstructor in hierarchy, it is always a konstructor.
+
+You can override konstructors in subclasses and call `super`. 
+Once method is a marked as konstructor in hierarchy, 
+it is always a konstructor.
                                    
-Methods inherited from superclass can't become konstructors in 
+Methods inherited from superclasses can't become konstructors in 
 subclasses. To achieve the effect, define a new method, 
 mark it as konstructor and call the inherited one. 
 
@@ -112,13 +119,13 @@ Using reserved method names `new` and `initialize` for custom
 constructor definition will raise an error:
 ```ruby
 konstructor
-def initialize # exception
+def initialize # raises Konstructor::ReservedNameError
 end
 ```
 or
 ```ruby
 konstructor
-def new # exception
+def new # raises Konstructor::ReservedNameError
 end
 ```
 
@@ -150,18 +157,19 @@ conflicts with Konstructor, please open an issue.
 
 You can remove default Ruby construtor by marking it as private:
 ```ruby
-private_class_method :new
+class SomeClass
+  private_class_method :new
+end   
 ```
  
 ## Performance
  
 Konstructor does all its work when class is being defined. Once class
 has been defined, it's just standard Ruby instance creation.
-Therefore there is no perfomance hit during runtime. 
+Therefore, there is no perfomance hit during runtime. 
 
-Perfomance hit for startup time wasn't measured yet, but 
-it should be comparable to the one of `attr_accessor` or 
-`ActiveSupport::Concern`. 
+If there is a slowdown during startup, it should be comparable 
+to the one of `attr_accessor` or `ActiveSupport::Concern`. 
   
 ## Thread safety
   
@@ -169,7 +177,7 @@ Konstructor is thread safe.
   
 ## Details
 
-In Ruby constructor is a pair of public class factory method 
+Ruby constructor is a pair consisting of public class factory method 
 and private instance method. Therefore, `konstructor` marks 
 instance method as private and defines a corresponding public class 
 method with the same name.

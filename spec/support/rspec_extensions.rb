@@ -1,16 +1,25 @@
 module RspecExtensions
 
   def let_klass(options = {}, &block)
-    let(options[:name] || :klass) do
+    klass_name = options[:name] || :klass
+    let(klass_name) do
       inherit = options[:inherit] ? send(options[:inherit]) : Object
       modules_to_include = Array(options[:include]).map { |module_var_name| send(module_var_name) }
 
       Class.new(inherit) do
         attr_reader :zero, :one, :two, :three
 
-        def initialize
-          @zero = 0
+        unless options[:skip_initialize]
+          def initialize
+            @zero = 0
+          end
         end
+
+        # @klass_name = klass_name.to_s
+        #
+        # def self.name
+        #   @klass_name
+        # end
 
         def self.def_alpha
           def alpha(one, two)

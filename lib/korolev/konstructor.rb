@@ -105,7 +105,7 @@ module Korolev
     # this method is idempotent
     def define(name)
       validate_name(name)
-      
+
       # defining class method
       @klass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
         def #{name}(*args, &block)

@@ -5,6 +5,8 @@ Minimalistic gem
 Korolev allows you to have multiple constructors in Ruby with just one
 simple declaration.
 
+Custom constructors are called `konstructors` in Korolev.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -60,24 +62,32 @@ all additional constructors. It will return true even if there is not such konst
 
 ### Conflicts with other gems
 
-Korolev written way that avoid any conflict with other gem. If you find a gem that Korolev conflicts with, please
-open an issue and give an example code.
+Korolev doesn't affect other gems in any way, even those that realy heavily on metaprogramming,
+such as rake, thor, contracts, etc.
+ 
+Nevertheless, there is a special case. Thor has a hook `initialize_added` that let's add behavior 
+to CLI class once default constructor is defined. It won't be fired when custom constructor
 
-Korolev works with gems that use the same metaprogramming approach, such as rake, thor, contracts, etc.
+Korolev works with gems that use the same metaprogramming approach, such as 
 
 When you include Korolev only one method `konstructor` is defined. 
 Until method `konstructor` is called in class, the class is not affected any other way.
   
-There are not 
+If you find a gem that Korolev conflicts with, please
+open an issue and give an example code. 
+
+And also it makes little sense, you can user `korolev` inside rake and thor classes when defining commands and tasks.
   
 ### Getting rid of includes
   
-This is totally safe, there is no perfomance penalty, no conflicts. Just add to gemfile
+It is safe to include Korolev method into core Class, 
+there is no perfomance penalty or conflicts. Just add this to gemfile: 
+
 ```ruby
 gem 'korolev', require: 'korolev/core_ext'
 ```
-And you will have `konstructor` method in all your classes. Until you
-call `konstructor` in your class, it is not affected in any other way. 
+After that you can remove all `include Korolev` declarations and
+still have `konstructor` method in all your classes. 
 
 ## Details
 

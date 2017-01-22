@@ -80,10 +80,23 @@ And also it makes little sense, you can user `konstructor` inside rake and
 thor classes when defining commands and tasks.
 
 If you stumble upon a metaprogramming gem that Konstructor conflicts with,
-please open [an issue](LINK TO NEW ISSUE). 
+please open [an issue](LINK TO NEW ISSUE).
+ 
+### Performance
+ 
+Konstructor does it's work the moment class is defined. 
+There is no perfomance hit during runtime. 
+Perfomance hit for a Rails project so far couldn't be detected. 
+
+For comparison with attr_accessor, which work in similar way to konstructor.
+  
+### Thread safety
+  
+Konstructor is thread safe.  
   
 ### Getting rid of includes
   
+MOVE TO THE START:  
 It is safe to include Konstructor method into core Class, 
 there is no perfomance penalty of any kind.
 Add `require` to your gemfile declaration: 
@@ -96,7 +109,7 @@ still have `konstructor` method in all your classes.
 
 ### Thread safety
 
-Konstructor is threadsafe
+Konstructor is threadsafe.
 
 ## Details
 

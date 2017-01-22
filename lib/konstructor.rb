@@ -44,7 +44,6 @@ module Konstructor
       get_or_init_factory(klass).method_added_to_klass(name)
     end
 
-    # TODO: ADD DOCS
     def is?(klass, name)
       default?(name) || declared?(klass, name)
     end
@@ -56,6 +55,7 @@ module Konstructor
     end
 
     def init_factory(klass)
+      # using variable @konstructor to minimize footprint, although saving factory there
       klass.instance_variable_set(:@konstructor, Factory.new(klass))
     end
 

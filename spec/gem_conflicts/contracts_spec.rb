@@ -5,7 +5,7 @@ require 'konstructor/core_ext'
 describe "Konstructor with contracts.ruby" do
 
   # Contracts seem not to work with any kind of class metaprogramming,
-  # so defining regular classes
+  # so have to define regular classes
 
   context "when contract is for method" do
     class TestContractsOne

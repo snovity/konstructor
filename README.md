@@ -11,7 +11,7 @@
 Konstructor is a small gem that gives you multiple
 constructors in Ruby.
 
-To define additional constructors use `konstructor` keyword:
+Use `konstructor` keyword to define constructors additional to the defaul one:
 ```ruby
 class SomeClass
   konstructor
@@ -44,8 +44,8 @@ You can also install it without Bundler:
 
     $ gem install konstructor
 
-See [Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page if 
-you wish to manually include Konstructor in your classes.
+If you wish to manually include Konstructor in your classes only when
+you need it, see [Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page.
    
 ## Usage
 
@@ -166,9 +166,9 @@ define konstructor in `included` block.
 ### Using with other gems
 
 Konstructor doesn't affect other gems, including those
-that depend on metaprogramming, such as rake, thor, contracts, etc.
+that depend on metaprogramming, such as [rake](https://github.com/ruby/rake), [thor](https://github.com/erikhuda/thor), [contracts](https://github.com/egonSchiele/contracts.ruby), etc.
 
-For instnace, Konstructor works with contracts gem:
+For instnace, this is how Konstructor works with contracts gem:
 ```ruby
   class SomeClass
     konstructor
@@ -207,8 +207,8 @@ Konstructor is thread safe.
 ## Details
 
 Ruby constructor is a pair consisting of public factory method defined
-on a class and a private instance method. Therefore, to achive its goal
-`konstructor` marks instance method as private and defines a 
+on a class and a private instance method. Therefore, to achieve 
+its goal `konstructor` marks instance method as private and defines a 
 corresponding public class method with the same name.
 
 You can check if certain instance method name has been declared as 

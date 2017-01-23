@@ -165,16 +165,16 @@ Modules can't have konstructors. Use `ActiveSupport::Concern` and
 define konstructor in `included` block.
 
 ```ruby
-  module SomeModule
-    extend ActiveSupport::Concern
+module SomeModule
+  extend ActiveSupport::Concern
     
-    included do      
-      konstructor :create
-    end
+  included do      
+    konstructor :create
+  end
     
-    def create
-    end
-  end        
+  def create
+  end
+end        
 ```
 
 #### Using with other gems
@@ -184,13 +184,13 @@ that depend on metaprogramming, such as [rake](https://github.com/ruby/rake), [t
 
 For instnace, this is how Konstructor works with contracts gem:
 ```ruby
-  class SomeClass
-    konstructor
-    Contract Num => SomeClass
-    def create(some_number)
-      @number = some_number
-    end
-  end    
+class SomeClass
+  konstructor
+  Contract Num => SomeClass
+  def create(some_number)
+    @number = some_number
+  end
+end    
 ```
   
 If you stumble upon a metaprogramming gem that 

@@ -44,12 +44,14 @@ You can also install it without Bundler:
 
     $ gem install konstructor
 
-If you wish to manually include Konstructor in your classes only when
-you need it, see [Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page.
+If you are a gem author or just wish to manually include Konstructor 
+in your classes only when you need it, see 
+[Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page.
    
 ## Usage
 
-In simplest form `konstructor` creates a constructor from the next method.
+In its simplest form `konstructor` creates a 
+constructor from the next method.
 
  ```ruby
   konstructor
@@ -138,31 +140,15 @@ obj.val # 6
 ``` 
 Once method is a marked as konstructor in hierarchy, 
 it is always a konstructor.
-                                   
-Methods inherited from superclasses can't become konstructors in 
-subclasses. To achieve the effect, define a new method, 
-mark it as konstructor and call the inherited one. 
 
-#### Reserved names
+There are certain of what can be marked `konstructor`, see
+[Limitations page](https://github.com/snovity/konstructor/wiki/Limitations)
+for details
 
-Using reserved method names `new` and `initialize` for additional 
-constructor declaration will raise an error:
-```ruby
-  konstructor
-  def initialize # raises Konstructor::ReservedNameError
-  end
-```
-or
-```ruby
-  konstructor
-  def new # raises Konstructor::ReservedNameError
-  end
-```
-
-#### Defining konstructors in Modules
+#### Declaring in Modules
 
 Modules can't have konstructors. Use `ActiveSupport::Concern` and 
-define konstructor in `included` block.
+declare konstructor in `included` block.
 
 ```ruby
 module SomeModule
@@ -177,12 +163,26 @@ module SomeModule
 end        
 ```
 
+#### Removing default constructor
+
+If you decide to remove the defaul Ruby constructor for some reason,
+you can effectively do it by marking it as private using built-in Ruby 
+method:
+```ruby
+class SomeClass
+  private_class_method :new
+end   
+```
+
 #### Using with other gems
 
 Konstructor doesn't affect other gems, including those
-that depend on metaprogramming, such as [rake](https://github.com/ruby/rake), [thor](https://github.com/erikhuda/thor), [contracts](https://github.com/egonSchiele/contracts.ruby), etc.
+that depend on metaprogramming, such as 
+[rake](https://github.com/ruby/rake),
+[thor](https://github.com/erikhuda/thor), 
+[contracts](https://github.com/egonSchiele/contracts.ruby), etc.
 
-For instnace, this is how Konstructor works with contracts gem:
+For instnace, this is how Konstructor works with contracts:
 ```ruby
 class SomeClass
   konstructor
@@ -194,18 +194,8 @@ end
 ```
   
 If you stumble upon a metaprogramming gem that 
-conflicts with Konstructor, please [open an issue](https://github.com/snovity/konstructor/issues/new).
-
-#### Removing default constructor
-
-If you decide to remove the defaul Ruby constructor for some reason,
-you can effectively do it by marking it as private using built-in Ruby 
-method:
-```ruby
-class SomeClass
-  private_class_method :new
-end   
-```
+conflicts with Konstructor, please 
+[open an issue](https://github.com/snovity/konstructor/issues/new).
   
 ## Details
 

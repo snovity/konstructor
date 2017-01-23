@@ -98,7 +98,7 @@ those methods without affecting the next method.
  obj2 = SomeClass.recreate
  ```
  
-### Same as default constructor
+#### Same as default constructor
  
 Additional constructors work exactly the same way as 
 built-in Ruby constructor. 
@@ -143,7 +143,7 @@ Methods inherited from superclasses can't become konstructors in
 subclasses. To achieve the effect, define a new method, 
 mark it as konstructor and call the inherited one. 
 
-### Reserved names
+#### Reserved names
 
 Using reserved method names `new` and `initialize` for additional 
 constructor declaration will raise an error:
@@ -159,12 +159,12 @@ def new # raises Konstructor::ReservedNameError
 end
 ```
 
-### Defining konstructors in Modules
+#### Defining konstructors in Modules
 
 Modules can't have konstructors. Use `ActiveSupport::Concern` and 
 define konstructor in `included` block.
 
-### Using with other gems
+#### Using with other gems
 
 Konstructor doesn't affect other gems, including those
 that depend on metaprogramming, such as [rake](https://github.com/ruby/rake), [thor](https://github.com/erikhuda/thor), [contracts](https://github.com/egonSchiele/contracts.ruby), etc.
@@ -183,7 +183,7 @@ For instnace, this is how Konstructor works with contracts gem:
 If you stumble upon a metaprogramming gem that 
 conflicts with Konstructor, please [open an issue](https://github.com/snovity/konstructor/issues/new).
 
-### Removing default constructor
+#### Removing default constructor
 
 If you decide to remove the defaul Ruby constructor for some reason,
 you can effectively do it by marking it as private using built-in Ruby 
@@ -201,7 +201,7 @@ on a class and a private instance method. Therefore, to achieve
 its goal `konstructor` marks instance method as private and defines a 
 corresponding public class method with the same name.
 
-### Performance
+#### Performance
  
 Konstructor does all its work when class is being defined. Once class
 has been defined, it's just standard Ruby instance creation.
@@ -209,7 +209,7 @@ Therefore, there is no runtime performance penalty.
 
 Konstructor doesn't depend on other gems.
   
-### Thread safety
+#### Thread safety
   
 Konstructor is thread safe.
 

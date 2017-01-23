@@ -8,6 +8,8 @@ require 'konstructor'
 require 'bundler/setup'
 Bundler.require(:development)
 
+Coveralls.wear!
+
 Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }
 
 RSpec.configure do |config|

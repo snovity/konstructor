@@ -8,8 +8,8 @@
 
 # Konstructor
 
-Konstructor is a small gem that gives you multiple
-constructors in Ruby.
+Konstructor is a small that gives you multiple
+constructors in Ruby. Konstructor doesn't depend on other gems.
 
 To define custom constructors use `konstructor` keyword:
 ```ruby

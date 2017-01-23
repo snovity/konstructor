@@ -1,4 +1,5 @@
 module Konstructor
+  # @private
   class Factory # :nodoc:
 
     def initialize(klass)

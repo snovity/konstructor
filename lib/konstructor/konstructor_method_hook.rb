@@ -1,4 +1,5 @@
 module Konstructor
+  # @private
   module KonstructorMethodHook # :nodoc:
 
     # Experimental and currently not used <code>method_added</code>

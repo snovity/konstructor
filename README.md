@@ -65,16 +65,16 @@ When method names are given, it creates constructors from
 those methods without affecting the next method.
  
  ```ruby
- konstructor :create, :recreate
+  konstructor :create, :recreate
  
- def not_constructor
- end
+  def not_constructor
+  end
  
- def create
- end
+  def create
+  end
  
- def recreate
- end
+  def recreate
+  end
  ```
  
  Call with method names can be placed anywhere in class definition.
@@ -106,10 +106,11 @@ built-in Ruby constructor.
 You can pass blocks to them. 
 
 ```ruby
-konstructor
-def create(val)
-  @val = yield val
-end
+  konstructor
+  def create(val)
+    @val = yield val
+  end
+  #...
 
 obj = SomeClass.create(3) { |v| v*3 }
 obj.val # 9
@@ -192,18 +193,6 @@ class SomeClass
   private_class_method :new
 end   
 ```
- 
-## Performance
- 
-Konstructor does all its work when class is being defined. Once class
-has been defined, it's just standard Ruby instance creation.
-Therefore, there is no runtime performance penalty. 
-
-Konstructor doesn't depend on other gems.
-  
-## Thread safety
-  
-Konstructor is thread safe.
   
 ## Details
 
@@ -212,23 +201,17 @@ on a class and a private instance method. Therefore, to achieve
 its goal `konstructor` marks instance method as private and defines a 
 corresponding public class method with the same name.
 
-You can check if certain instance method name has been declared as 
-constructor or is a default constructor by running.
-```ruby
-Konstructor.is?(SomeClass, :initialize) # true
-Konstructor.is?(SomeClass, :create) # true
-Konstructor.is?(SomeClass, :recreate) # true
-Konstructor.is?(SomeClass, :something_else) # false
-``` 
+### Performance
  
-It will return true even if no such constructor has 
-been defined yet. Like:
-```ruby
-class SomeClass
-  konstructor :create
-end
-```
-Konstructor body may be supplied in subclasses.
+Konstructor does all its work when class is being defined. Once class
+has been defined, it's just standard Ruby instance creation.
+Therefore, there is no runtime performance penalty. 
+
+Konstructor doesn't depend on other gems.
+  
+### Thread safety
+  
+Konstructor is thread safe.
 
 ## Contributing
 

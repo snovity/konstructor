@@ -1,6 +1,8 @@
 [![Gem Version](http://img.shields.io/gem/v/konstructor.svg)][gem]
+[![Build Status](http://img.shields.io/travis/snovity/konstructor.svg)][travis]
 
 [gem]: https://rubygems.org/gems/konstructor
+[travis]: http://travis-ci.org/snovity/konstructor
 
 # Konstructor
 

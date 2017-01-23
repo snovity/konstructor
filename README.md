@@ -1,3 +1,7 @@
+[![Gem Version](http://img.shields.io/gem/v/konstructor.svg)][gem]
+
+[gem]: https://rubygems.org/gems/konstructor
+
 # Konstructor
 
 Konstructor is a small gem that gives you multiple

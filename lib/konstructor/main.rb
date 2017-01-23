@@ -8,8 +8,6 @@ module Konstructor
   module KonstructorMethod
     private
 
-    # @!visibility private
-
     # konstructor                 -> nil
     # konstructor(symbol, ...)    -> nil
     # konstructor(string, ...)    -> nil
@@ -58,12 +56,12 @@ module Konstructor
     #   ReservedNameError
     #   DeclaringInheritedError
     #   IncludingInModuleError
+    #
+    # @!visibility public
     def konstructor(*several_variants) # :doc:
       Konstructor.declare(self, several_variants)
       nil
     end
-
-    # @!visibility protected
   end
 
   DEFAULT_NAMES = [:initialize]

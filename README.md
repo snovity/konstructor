@@ -11,7 +11,7 @@
 Konstructor is a small gem that gives you multiple
 constructors in Ruby.
 
-Use `konstructor` keyword to define constructors additional to the defaul one:
+Use `konstructor` keyword to declare constructors additional to the defaul one:
 ```ruby
 class SomeClass
   konstructor
@@ -50,7 +50,7 @@ in your classes only when you need it, see
    
 ## Usage
 
-In its simplest form `konstructor` creates a 
+In its simplest form `konstructor` declaration creates a 
 constructor from the next method.
 
  ```ruby
@@ -79,7 +79,8 @@ those methods without affecting the next method.
   end
  ```
  
- Call with method names can be placed anywhere in class definition.
+ Declaration with method names can be placed anywhere in 
+ class definition.
  
  ```ruby
   def create
@@ -138,41 +139,25 @@ end
 obj = SomeSubclass.create(2, 3)
 obj.val # 6
 ``` 
-Once method is a marked as konstructor in hierarchy, 
+Once method is declared as konstructor in hierarchy, 
 it is always a konstructor.
 
-There are certain of what can be marked `konstructor`, see
+There are certain limitations to what can be declared as `konstructor`, 
+see 
 [Limitations page](https://github.com/snovity/konstructor/wiki/Limitations)
-for details
+for details.
 
-#### Declaring in Modules
+If you decide to remove the default Ruby constructor for some reason,
+you can effectively do it by marking it as private using Ruby 
+method `private_class_method`:
 
-Modules can't have konstructors. Use `ActiveSupport::Concern` and 
-declare konstructor in `included` block.
-
-```ruby
-module SomeModule
-  extend ActiveSupport::Concern
-    
-  included do      
-    konstructor :create
-  end
-    
-  def create
-  end
-end        
-```
-
-#### Removing default constructor
-
-If you decide to remove the defaul Ruby constructor for some reason,
-you can effectively do it by marking it as private using built-in Ruby 
-method:
 ```ruby
 class SomeClass
   private_class_method :new
 end   
 ```
+
+Only additional constructors will be left in this case. 
 
 #### Using with other gems
 

@@ -8,7 +8,6 @@ module Konstructor
   module KonstructorMethod
     private
 
-    # :doc:
     # konstructor                 -> nil
     # konstructor(symbol, ...)    -> nil
     # konstructor(string, ...)    -> nil
@@ -57,7 +56,7 @@ module Konstructor
     #   ReservedNameError
     #   DeclaringInheritedError
     #   IncludingInModuleError
-    def konstructor(*several_variants)
+    def konstructor(*several_variants) #:doc:
       Konstructor.declare(self, several_variants)
       nil
     end

@@ -1,6 +1,5 @@
 module Konstructor
-  # :nodoc:
-  module KonstructorMethodHook
+  module KonstructorMethodHook #:nodoc:
 
     # Experimental and currently not used <code>method_added</code>
     # hook approach protecting against method_added

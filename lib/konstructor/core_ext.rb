@@ -1,5 +1,4 @@
-# :nodoc:
-class Class
+class Class #:nodoc:
 
   include Konstructor::KonstructorMethod
 

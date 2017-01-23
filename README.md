@@ -11,7 +11,7 @@
 Konstructor is a small gem that gives you multiple
 constructors in Ruby.
 
-To define custom constructors use `konstructor` keyword:
+To define additional constructors use `konstructor` keyword:
 ```ruby
 class SomeClass
   konstructor
@@ -44,30 +44,12 @@ You can also install it without Bundler:
 
     $ gem install konstructor
 
-### Manual include    
-    
-If you wish to manually `include Konstructor` in class only when you
-use `konstructor` keyword, do
-```ruby
-gem 'konstructor', require: 'konstructor/no_core_ext'
-```
-and then
-```ruby
-class SomeClass
-  include Konstructor
-  # ...
-end
-```
-Gem authors should always manually include Konstructor, i.e. do
-```ruby
-require 'konstructor/no_core_ext' 
-```
-inside gems. This way Konstructor isn't pushed on those who don't want
-to use it.
-
+See [Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page if 
+you wish to manually include Konstructor in your classes.
+   
 ## Usage
 
-When no names are given `konstructor` just affects the next method:
+In simplest form `konstructor` creates a constructor from the next method.
 
  ```ruby
  konstructor
@@ -79,11 +61,15 @@ When no names are given `konstructor` just affects the next method:
  end
  ```
  
- When names are given, it makes those methods konstructors:
+When method names are given, it creates constructors from 
+those methods without affecting the next method.
  
  ```ruby
  konstructor :create, :recreate
  
+ def not_constructor
+ end
+ 
  def create
  end
  
@@ -91,7 +77,7 @@ When no names are given `konstructor` just affects the next method:
  end
  ```
  
- Call with names can be placed anywhere in class definition:
+ Call with method names can be placed anywhere in class definition.
  
  ```ruby
   def create
@@ -104,7 +90,7 @@ When no names are given `konstructor` just affects the next method:
  ```
  
  In all above cases the class will have the default constructor 
- and two custom ones:
+ and two additional ones.
  
  ```ruby
  obj0 = SomeClass.new
@@ -114,8 +100,10 @@ When no names are given `konstructor` just affects the next method:
  
 ### Same as default constructor
  
-Konstructors work exactly the same way as built-in Ruby constructor.
-You can pass blocks to them: 
+Additional constructors work exactly the same way as 
+built-in Ruby constructor. 
+
+You can pass blocks to them. 
 
 ```ruby
 konstructor
@@ -127,7 +115,26 @@ obj = SomeClass.create(3) { |v| v*3 }
 obj.val # 9
 ```
 
-You can override konstructors in subclasses and call `super`. 
+You can override them in subclasses and call `super`.
+```ruby
+class SomeClass
+  konstructor
+  def create(val)
+    @val = val
+  end
+  
+  attr_reader :val
+end
+
+class SomeSubclass < SomeClass
+  def create(val1, val2)
+    super(val1 * val2)
+  end
+end
+
+obj = SomeSubclass.create(2, 3)
+obj.val # 6
+``` 
 Once method is a marked as konstructor in hierarchy, 
 it is always a konstructor.
                                    
@@ -137,8 +144,8 @@ mark it as konstructor and call the inherited one.
 
 ### Reserved names
 
-Using reserved method names `new` and `initialize` for custom 
-constructor definition will raise an error:
+Using reserved method names `new` and `initialize` for additional 
+constructor declaration will raise an error:
 ```ruby
 konstructor
 def initialize # raises Konstructor::ReservedNameError
@@ -173,11 +180,11 @@ For instnace, Konstructor works with contracts gem:
 ```
   
 If you stumble upon a metaprogramming gem that 
-conflicts with Konstructor, please open an issue.
+conflicts with Konstructor, please [open an issue](https://github.com/snovity/konstructor/issues/new).
 
 ### Removing default constructor
 
-You can effectively remove default Ruby construtor
+You can effectively remove default Ruby constructor
 by marking it as private:
 ```ruby
 class SomeClass
@@ -189,11 +196,8 @@ end
  
 Konstructor does all its work when class is being defined. Once class
 has been defined, it's just standard Ruby instance creation.
-Therefore, it's as fast as standard Ruby constructor. 
+Therefore, there is no runtime performance penalty. 
 
-If there is a slowdown during startup, it should be comparable 
-to the one of `attr_accessor` or `ActiveSupport::Concern`.
- 
 Konstructor doesn't depend on other gems.
   
 ## Thread safety
@@ -203,7 +207,7 @@ Konstructor is thread safe.
 ## Details
 
 Ruby constructor is a pair consisting of public factory method defined
-on a class and a private instance method. Therefore, 
+on a class and a private instance method. Therefore, to achive its goal
 `konstructor` marks instance method as private and defines a 
 corresponding public class method with the same name.
 

@@ -56,7 +56,7 @@ module Konstructor
     #   ReservedNameError
     #   DeclaringInheritedError
     #   IncludingInModuleError
-    def konstructor(*several_variants) #:doc:
+    def konstructor(*several_variants) # :doc:
       Konstructor.declare(self, several_variants)
       nil
     end

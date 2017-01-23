@@ -1,5 +1,5 @@
 module Konstructor
-  module SimpleMethodHook #:nodoc:
+  module SimpleMethodHook # :nodoc:
 
     private
 

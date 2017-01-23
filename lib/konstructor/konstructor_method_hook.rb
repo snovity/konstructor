@@ -1,5 +1,5 @@
 module Konstructor
-  module KonstructorMethodHook #:nodoc:
+  module KonstructorMethodHook # :nodoc:
 
     # Experimental and currently not used <code>method_added</code>
     # hook approach protecting against method_added
@@ -21,8 +21,7 @@ module Konstructor
         alias konstructor_super_method_added method_added
 
         def method_added(name)
-          @konstructor ||= Konstructor.new(self)
-          @konstructor.method_added_to_klass(name)
+          Konstructor.method_added_to_klass(self, name)
           konstructor_super_method_added(name)
         end
       end

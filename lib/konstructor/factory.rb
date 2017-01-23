@@ -1,5 +1,5 @@
 module Konstructor
-  class Factory #:nodoc:
+  class Factory # :nodoc:
 
     def initialize(klass)
       @klass = klass

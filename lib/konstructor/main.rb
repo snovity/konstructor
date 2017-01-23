@@ -8,6 +8,7 @@ module Konstructor
   module KonstructorMethod
     private
 
+    # :doc:
     # konstructor                 -> nil
     # konstructor(symbol, ...)    -> nil
     # konstructor(string, ...)    -> nil

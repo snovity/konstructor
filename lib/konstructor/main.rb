@@ -8,8 +8,8 @@ module Konstructor
   module KonstructorMethod
     private
 
-    # konstructor                 -> nil
-    # konstructor(symbol, ...)    -> nil
+    # konstructor                 -> nil or
+    # konstructor(symbol, ...)    -> nil or
     # konstructor(string, ...)    -> nil
     #
     # If used without params, declares next method as constructor.
@@ -52,7 +52,7 @@ module Konstructor
     # Can be used multiple times with various arguments,
     # all calls add up without overwriting each other.
     #
-    # Can raise several errors inheriting from <code>Konstructor::Error</code>
+    # Can raise several errors inheriting from <code>Konstructor::Error</code>:
     #   ReservedNameError
     #   DeclaringInheritedError
     #   IncludingInModuleError

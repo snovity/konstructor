@@ -22,6 +22,4 @@ RSpec.configure do |config|
   config.extend RspecExtensions
 end
 
-# imitates the way requiring a built gem works
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'konstructor/no_core_ext'

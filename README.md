@@ -8,10 +8,11 @@
 
 # Konstructor
 
-Konstructor is a small gem that gives you multiple
+This is a small gem that gives you multiple
 constructors in Ruby.
 
-Use `konstructor` keyword to declare constructors additional to the defaul one:
+Use `konstructor` keyword to declare constructors additional 
+to the defaul one:
 ```ruby
 class SomeClass
   konstructor
@@ -158,8 +159,7 @@ for details.
 
 #### Using with other gems
 
-Konstructor doesn't affect other gems, including those
-that depend on metaprogramming, such as 
+Konstructor doesn't affect other depending on metaprogramming, such as 
 [rake](https://github.com/ruby/rake),
 [thor](https://github.com/erikhuda/thor), 
 [contracts](https://github.com/egonSchiele/contracts.ruby), etc.
@@ -191,6 +191,19 @@ corresponding public class method with the same name.
 Konstructor does all its work when class is being defined. Once class
 has been defined, it's just standard Ruby instance creation.
 Therefore, there is no runtime performance penalty. 
+
+As for the cost of declaring a constructor at initial load time, 
+it's roughly the same as declaring 3 properties with `attr_accessor`.
+```ruby
+  attr_accessor :one, :two, :three
+  
+  # following declaration take the same time as above declaration
+  konstructor
+  def create
+  end
+```  
+See [Benchmarks page](https://github.com/snovity/konstructor/wiki/Benchmarks)
+for details.
 
 Konstructor doesn't depend on other gems.
   

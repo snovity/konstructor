@@ -93,13 +93,21 @@ module Konstructor
     end
 
     def define_factory(name)
-      @klass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def #{name}(*args, &block)
-          instance = allocate
-          instance.__send__(:#{name}, *args, &block)
-          instance
-        end
-      RUBY
+      # this works roughly 5 times slower on Ruby 2.3 than block version,
+      # probably because block version is converted to byte code
+      # @klass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
+      #   def #{name}(*args, &block)
+      #     instance = allocate
+      #     instance.__send__(:#{name}, *args, &block)
+      #     instance
+      #   end
+      # RUBY
+
+      @klass.define_singleton_method(name) do |*args, &block|
+        instance = allocate
+        instance.send(name, *args, &block)
+        instance
+      end
     end
 
     def mark_as_private(name)

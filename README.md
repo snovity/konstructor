@@ -198,7 +198,7 @@ it's roughly the same as declaring 3 properties with `attr_accessor`.
 ```ruby
   attr_accessor :one, :two, :three
   
-  # following declaration take the same time as above declaration
+  # following declaration takes the same time as above declaration
   konstructor
   def create
   end

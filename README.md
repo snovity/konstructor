@@ -52,13 +52,13 @@ you need it, see [Manual include](https://github.com/snovity/konstructor/wiki/Ma
 In simplest form `konstructor` creates a constructor from the next method.
 
  ```ruby
- konstructor
- def create
- end
+  konstructor
+  def create
+  end
  
- konstructor
- def recreate
- end
+  konstructor
+  def recreate
+  end
  ```
  
 When method names are given, it creates constructors from 
@@ -148,21 +148,34 @@ mark it as konstructor and call the inherited one.
 Using reserved method names `new` and `initialize` for additional 
 constructor declaration will raise an error:
 ```ruby
-konstructor
-def initialize # raises Konstructor::ReservedNameError
-end
+  konstructor
+  def initialize # raises Konstructor::ReservedNameError
+  end
 ```
 or
 ```ruby
-konstructor
-def new # raises Konstructor::ReservedNameError
-end
+  konstructor
+  def new # raises Konstructor::ReservedNameError
+  end
 ```
 
 #### Defining konstructors in Modules
 
 Modules can't have konstructors. Use `ActiveSupport::Concern` and 
 define konstructor in `included` block.
+
+```ruby
+  module SomeModule
+    extend ActiveSupport::Concern
+    
+    included do      
+      konstructor :create
+    end
+    
+    def create
+    end
+  end        
+```
 
 #### Using with other gems
 

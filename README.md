@@ -88,19 +88,15 @@ When no names are given `konstructor` just affects the next method:
  
 ### Same as default constructor
  
-Konstructors work exactly the same way as real Ruby constructors.
-You can pass a blocks to them: 
+Konstructors work exactly the same way as built-in Ruby constructor.
+You can pass blocks to them: 
 
 ```ruby
 konstructor
 def create(val)
   @val = yield val
 end
-```
 
-and then
-
-```ruby
 obj = SomeClass.create(3) { |v| v*3 }
 obj.val # 9
 ```
@@ -155,7 +151,8 @@ conflicts with Konstructor, please open an issue.
 
 ### Removing default constructor
 
-You can remove default Ruby construtor by marking it as private:
+You can effectively remove default Ruby construtor
+by marking it as private:
 ```ruby
 class SomeClass
   private_class_method :new
@@ -166,7 +163,7 @@ end
  
 Konstructor does all its work when class is being defined. Once class
 has been defined, it's just standard Ruby instance creation.
-Therefore, there is no perfomance hit during runtime. 
+Therefore, it's as fast as standard Ruby constructor. 
 
 If there is a slowdown during startup, it should be comparable 
 to the one of `attr_accessor` or `ActiveSupport::Concern`. 
@@ -177,10 +174,10 @@ Konstructor is thread safe.
   
 ## Details
 
-Ruby constructor is a pair consisting of public class factory method 
-and private instance method. Therefore, `konstructor` marks 
-instance method as private and defines a corresponding public class 
-method with the same name.
+Ruby constructor is a pair consisting of public factory method defined
+on a class and a private instance method. Therefore, 
+`konstructor` marks instance method as private and defines a 
+corresponding public class method with the same name.
 
 You can check if certain instance method name has been declared as 
 constructor or is a default constructor by running.

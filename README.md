@@ -1,10 +1,10 @@
 [![Gem Version](http://img.shields.io/gem/v/konstructor.svg)][gem]
-[![Build Status](http://img.shields.io/travis/snovity/konstructor.svg)][travis]
-[![Coverage Status](http://img.shields.io/coveralls/snovity/konstructor.svg)][coveralls]
+[![Build Status](https://travis-ci.org/snovity/konstructor.svg?branch=master)][travis]
+[![Coverage Status](https://coveralls.io/repos/github/snovity/konstructor/badge.svg?branch=master)][coveralls]
 
 [gem]: https://rubygems.org/gems/konstructor
 [travis]: http://travis-ci.org/snovity/konstructor
-[coveralls]: https://coveralls.io/r/snovity/konstructor
+[coveralls]: https://coveralls.io/github/snovity/konstructor
 
 # Konstructor
 

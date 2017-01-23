@@ -220,7 +220,7 @@ Konstructor.is?(SomeClass, :recreate) # true
 Konstructor.is?(SomeClass, :something_else) # false
 ``` 
  
-It will return true even if there is not such constructor has 
+It will return true even if no such constructor has 
 been defined yet. Like:
 ```ruby
 class SomeClass

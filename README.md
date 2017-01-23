@@ -184,8 +184,9 @@ conflicts with Konstructor, please [open an issue](https://github.com/snovity/ko
 
 ### Removing default constructor
 
-You can effectively remove default Ruby constructor
-by marking it as private:
+If you decide to remove the defaul Ruby constructor for some reason,
+you can effectively do it by marking it as private using built-in Ruby 
+method:
 ```ruby
 class SomeClass
   private_class_method :new

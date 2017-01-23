@@ -8,8 +8,8 @@
 
 # Konstructor
 
-Konstructor is a small that gives you multiple
-constructors in Ruby. Konstructor doesn't depend on other gems.
+Konstructor is a small gem that gives you multiple
+constructors in Ruby.
 
 To define custom constructors use `konstructor` keyword:
 ```ruby
@@ -35,17 +35,35 @@ It's similar to having overloaded constructors in other languages.
 Via Gemfile:
 
 ```ruby
-gem 'konstructor' #, require: 'konstructor/core_ext' 
+gem 'konstructor' 
 ```
 
 and then execute `bundle`. 
 
-Uncomment require option to skip adding 
-`include Konstructor` every time you want to use `konstructor` keyword. 
-
 You can also install it without Bundler:
 
     $ gem install konstructor
+
+### Manual include    
+    
+If you wish to manually `include Konstructor` in class only when you
+use `konstructor` keyword, do
+```ruby
+gem 'konstructor', require: 'konstructor/no_core_ext'
+```
+and then
+```ruby
+class SomeClass
+  include Konstructor
+  # ...
+end
+```
+Gem authors should always manually include Konstructor, i.e. do
+```ruby
+require 'konstructor/no_core_ext' 
+```
+inside gems. This way Konstructor isn't pushed on those who don't want
+to use it.
 
 ## Usage
 
@@ -174,7 +192,9 @@ has been defined, it's just standard Ruby instance creation.
 Therefore, it's as fast as standard Ruby constructor. 
 
 If there is a slowdown during startup, it should be comparable 
-to the one of `attr_accessor` or `ActiveSupport::Concern`. 
+to the one of `attr_accessor` or `ActiveSupport::Concern`.
+ 
+Konstructor doesn't depend on other gems.
   
 ## Thread safety
   

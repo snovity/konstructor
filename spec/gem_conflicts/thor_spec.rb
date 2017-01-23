@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'konstructor/core_ext'
+require 'konstructor'
 
 describe "Konstructor with Thor" do
 

@@ -32,14 +32,8 @@ describe "konstructor via modules" do
             konstructor :betta
           end
 
-          attr_reader :zero, :one, :two, :three
-
           def betta(three)
             @three = three
-          end
-
-          def initialize
-            @zero = 0
           end
         end
       end
@@ -64,12 +58,6 @@ describe "konstructor via modules" do
             def betta(three)
               @three = three
             end
-          end
-
-          attr_reader :zero, :one, :two, :three
-
-          def initialize
-            @zero = 0
           end
         end
       end

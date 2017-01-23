@@ -1,7 +1,3 @@
-# imitates the way requiring a built gem works
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'konstructor'
-
 # requiring all development dependencies via Bundler,
 # but not using Bundler in the runtime code
 # to avoid having Bundler as runtime dependency
@@ -24,6 +20,8 @@ RSpec.configure do |config|
 
   config.include CoreHelpers
   config.extend RspecExtensions
-
 end
 
+# imitates the way requiring a built gem works
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'konstructor/no_core_ext'

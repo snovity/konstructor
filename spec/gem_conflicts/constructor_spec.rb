@@ -1,6 +1,6 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor/core_ext'
+require 'konstructor'
 
 describe "Konstructor with constructor" do
 

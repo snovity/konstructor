@@ -148,8 +148,8 @@ end
 obj = SomeSubclass.create(2, 3)
 obj.val # 6
 ``` 
-Once method is declared as konstructor in hierarchy, 
-it is always a konstructor.
+Once method is declared as `konstructor` in hierarchy, 
+it is always a constructor.
 
 There are certain limitations to what can be declared as `konstructor`, 
 see 

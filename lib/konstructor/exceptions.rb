@@ -10,7 +10,14 @@ module Konstructor
   class IncludeInModuleError < StandardError
     def initialize(base)
       super "Konstructor can't be included in module '#{base.name}' directly, " +
-            "please, use ActiveSupport::Concern or included hook directly."
+            "please, use ActiveSupport::Concern or standard included hook."
+    end
+  end
+
+  class DeclaringInheritedError < StandardError
+    def initialize(name)
+      super "You are declaring an inherited method '#{name}' as konstructor, "
+            "this is not allowed."
     end
   end
 

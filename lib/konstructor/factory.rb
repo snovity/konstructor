@@ -29,9 +29,9 @@ module Konstructor
       if @next_method_is_konstructor
         @next_method_is_konstructor = false
         @konstructor_names << name
-        define(name)
+        process_declaration(name)
       elsif declared?(name)
-        define(name)
+        process_declaration(name)
       end
     end
 
@@ -58,29 +58,41 @@ module Konstructor
       @konstructor_names.concat(new_names)
 
       new_names.each do |name|
-        if has_own_method?(name)
-          define(name)
+        if method_in_hierarchy?(name)
+          process_declaration(name)
         else
-          # not sure if konstructor ever will be defined,
-          # but informing about the problem anyway
-          validate_name(name)
+          # not sure if method will ever be defined,
+          # but validating its name anyway
+          validate_name!(name)
         end
       end
     end
 
-    def has_own_method?(name)
-      method_defined = @klass.method_defined?(name) || @klass.private_method_defined?(name)
-      superclass_method_defined = @klass.respond_to?(:superclass) && (
-        @klass.superclass.method_defined?(name) || @klass.superclass.private_method_defined?(name)
-      )
-      method_defined && !superclass_method_defined
+    def method_in_hierarchy?(name)
+      method_defined?(@klass, name)
+    end
+
+    def method_on_superclass?(name)
+      @klass.respond_to?(:superclass) && method_defined?(@klass.superclass, name)
+    end
+
+    def method_defined?(klass, name)
+      klass.method_defined?(name) || klass.private_method_defined?(name)
     end
 
     # this method is idempotent
-    def define(name)
-      validate_name(name)
+    def process_declaration(name)
+      validate_name!(name)
 
-      # defining class method
+      if method_on_superclass?(name) && !declared_in_superclass?(name)
+        raise DeclaringInheritedError, name
+      end
+
+      define_factory(name)
+      mark_as_private(name)
+    end
+
+    def define_factory(name)
       @klass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
         def #{name}(*args, &block)
           instance = allocate
@@ -88,12 +100,13 @@ module Konstructor
           instance
         end
       RUBY
+    end
 
-      # marking instance method as private
+    def mark_as_private(name)
       @klass.__send__(:private, name)
     end
 
-    def validate_name(name)
+    def validate_name!(name)
       if Konstructor.reserved?(name)
         raise ReservedNameError, name
       end

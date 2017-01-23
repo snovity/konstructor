@@ -16,6 +16,8 @@ describe "Konstructor.konstructor via superclass" do
   end
 
   context "inherited methods marked as constructors in subclass" do
+    subject { klass }
+
     context "when Konstructor is included in base class" do
       let_konstructor_klass(name: :base_klass) do
         def_alpha
@@ -26,7 +28,7 @@ describe "Konstructor.konstructor via superclass" do
         konstructor :alpha, :betta
       end
 
-      include_examples "no custom constructors"
+      specify { expect_to_raise Konstructor::DeclaringInheritedError }
     end
 
     context "when Konstructor is included in subclass" do
@@ -39,7 +41,7 @@ describe "Konstructor.konstructor via superclass" do
         konstructor :alpha, :betta
       end
 
-      include_examples "no custom constructors"
+      specify { expect_to_raise Konstructor::DeclaringInheritedError }
     end
   end
 
@@ -49,28 +51,54 @@ describe "Konstructor.konstructor via superclass" do
       def_betta
     end
 
-    let(:instance) { klass.alpha([1, 2]) }
+    subject { klass }
 
     context "via name" do
       let_klass(inherit: :base_klass) do
         konstructor :alpha
-        def alpha(list)
-          super(list[0] * 3, list[1] * 3)
-        end
+        def_alpha
       end
 
-      specify { expect_instance_state nil, 3, 6, nil }
+      specify { expect_to_raise Konstructor::DeclaringInheritedError }
     end
 
     context "via next method" do
       let_klass(inherit: :base_klass) do
         konstructor
-        def alpha(list)
-          super(list[0] * 3, list[1] * 3)
+        def_alpha
+      end
+
+      specify { expect_to_raise Konstructor::DeclaringInheritedError }
+    end
+  end
+
+  context "when constructor from subclass reuses method from superclass" do
+    let_konstructor_klass(name: :base_klass) do
+      def_betta
+    end
+
+    let(:instance) { klass.alpha(1, 2) }
+
+    context "via name" do
+      let_klass(inherit: :base_klass) do
+        konstructor :alpha
+        def alpha(one, two)
+          betta(one - two)
         end
       end
 
-      specify { expect_instance_state nil, 3, 6, nil }
+      specify { expect_instance_state nil, nil, nil, -1 }
+    end
+
+    context "via next method" do
+      let_klass(inherit: :base_klass) do
+        konstructor
+        def alpha(one, two)
+          betta(one - two)
+        end
+      end
+
+      specify { expect_instance_state nil, nil, nil, -1 }
     end
   end
 

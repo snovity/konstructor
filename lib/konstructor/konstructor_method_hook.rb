@@ -1,7 +1,9 @@
 module Konstructor
+  # :nodoc:
   module KonstructorMethodHook
 
-    # Experimental and currently not used method_added hook approach protecting against method_added
+    # Experimental and currently not used <code>method_added</code>
+    # hook approach protecting against method_added
     # overrides that are not calling super (hopefully, there is no such code in the wild).
     #
     # Since method_added hook is idempotent, there would be no harm done even if

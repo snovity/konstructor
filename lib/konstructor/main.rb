@@ -75,26 +75,29 @@ module Konstructor
       DEFAULT_NAMES.include?(name.to_sym)
     end
 
-    def declared?(klass, name)
+    # Once method is a konstructor, it is always a konstructor, this differs
+    # from the way private, protected works. If overriding method isn't repeatedly
+    # marked as private it becomes public.
+    def declared?(klass, method_name)
       konstructor = get_factory(klass)
       if konstructor
-        konstructor.declared?(name.to_sym)
+        konstructor.declared?(method_name.to_sym)
       else
         false
       end
     end
 
-    def declare(klass, new_names)
+    def declare(klass, new_method_names)
       setup_method_added_hook(klass)
-      get_or_init_factory(klass).declare(new_names)
+      get_or_init_factory(klass).declare(new_method_names)
     end
 
-    def method_added_to_klass(klass, name)
-      get_or_init_factory(klass).method_added_to_klass(name)
+    def method_added_to_klass(klass, method_name)
+      get_or_init_factory(klass).method_added_to_klass(method_name)
     end
 
-    def is?(klass, name)
-      default?(name) || declared?(klass, name)
+    def is?(klass, method_name)
+      default?(method_name) || declared?(klass, method_name)
     end
 
     private

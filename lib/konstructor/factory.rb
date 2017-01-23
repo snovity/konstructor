@@ -1,4 +1,5 @@
 module Konstructor
+  # :nodoc:
   class Factory
 
     def initialize(klass)
@@ -16,9 +17,6 @@ module Konstructor
       end
     end
 
-    # Once method is a konstructor, it is always a konstructor, this differs
-    # from the way private, protected works. If overriding method isn't repeatedly
-    # marked as private it becomes public.
     def declared?(name)
       declared_in_self?(name) || declared_in_superclass?(name)
     end

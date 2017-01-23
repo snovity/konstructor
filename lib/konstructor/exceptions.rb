@@ -1,5 +1,6 @@
 module Konstructor
 
+  # Base class for all Konstructor errors.
   class Error < StandardError
   end
 

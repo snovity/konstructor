@@ -1,8 +1,5 @@
 # coding: utf-8
-# TODO: replace with require_relative
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'konstructor/version'
+require_relative 'lib/konstructor/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'konstructor'
@@ -10,11 +7,13 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Dima Lashkov']
   spec.email         = ['dm.lashkov@gmail.com']
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
+  spec.summary       = %q{Multiple constructors in Ruby.}
   # few paragraphs with no examples or formatting
-  # spec.description   = %q{Write a longer description or delete this line.}
-  # put here link to GitHub repo
-  spec.homepage      = 'https://github.com/snovity'
+  spec.description   = %q{
+    Konstructor is a small gem that gives you multiple constructors in Ruby.
+    It's similar to having overloaded constructors in other languages.
+  }
+  spec.homepage      = 'https://github.com/snovity/konstructor'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.0.0'
 

@@ -17,7 +17,7 @@ describe "konstructor via modules" do
 
     subject { some_module }
 
-    specify { expect_to_raise Konstructor::IncludeInModuleError }
+    specify { expect_to_raise Konstructor::IncludingInModuleError }
   end
 
   context "with ActiveSupport::Concern" do

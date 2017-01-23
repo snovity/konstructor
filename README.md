@@ -54,7 +54,7 @@ keyword in your classes only when you need it, see
 In its simplest form `konstructor` declaration creates a 
 constructor from the next method.
 
- ```ruby
+```ruby
   konstructor
   def create
   end
@@ -62,15 +62,15 @@ constructor from the next method.
   konstructor
   def recreate
   end
- ```
+```
  
 When method names are given, it creates constructors from 
 those methods without affecting the next method.
  
- ```ruby
+```ruby
   konstructor :create, :recreate
  
-  def not_constructor
+  def not_a_constructor
   end
  
   def create
@@ -78,12 +78,12 @@ those methods without affecting the next method.
  
   def recreate
   end
- ```
+```
  
- Declaration with method names can be placed anywhere in 
- class definition.
+Declaration with method names can be placed anywhere in 
+class definition.
  
- ```ruby
+```ruby
   def create
   end
   konstructor :create
@@ -91,26 +91,39 @@ those methods without affecting the next method.
   konstructor
   def recreate
   end
- ```
+```
  
- In all above cases `SomeClass` will have the default constructor 
- and two additional ones.
+Several declarations may be used, 
+all declarations add up without overwriting each other. 
+```ruby     
+  def create
+  end
+   
+  konstructor :recreate
+  konstructor :create
+   
+  def recreate
+  end
+``` 
  
- ```ruby
+In all above cases `SomeClass` will have the default constructor 
+and two additional ones.
+ 
+```ruby
  obj0 = SomeClass.new
  obj1 = SomeClass.create
  obj2 = SomeClass.recreate
- ```
+```
  
- If you decide to remove the default Ruby constructor for some reason,
- you can effectively do it by marking it as private using Ruby 
- method `private_class_method`:
+If you decide to remove the default Ruby constructor for some reason,
+you can effectively do it by marking it as private using Ruby 
+method `private_class_method`:
  
- ```ruby
+```ruby
  class SomeClass
    private_class_method :new
  end   
- ```
+```
   
 #### Same as default constructor
  
@@ -205,6 +218,8 @@ it's roughly the same as declaring 3 properties with `attr_accessor`.
 ```  
 See [Benchmarks page](https://github.com/snovity/konstructor/wiki/Benchmarks)
 for details.
+
+#### Dependencies
 
 Konstructor doesn't depend on other gems.
   

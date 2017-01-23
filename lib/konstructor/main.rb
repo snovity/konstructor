@@ -8,9 +8,57 @@ module Konstructor
   module KonstructorMethod
     private
 
-    # TODO: ADD DOCS
-    def konstructor(*new_names)
-      Konstructor.declare(self, new_names)
+    # konstructor                 -> nil
+    # konstructor(symbol, ...)    -> nil
+    # konstructor(string, ...)    -> nil
+    #
+    # If used without params, declares next method as constructor.
+    #
+    #   module SomeClass
+    #     attr_reader :val
+    #
+    #     konstructor
+    #     def create(val)
+    #       @val = val
+    #     end
+    #   end
+    #
+    # If names are given, call can be placed anywhere, only methods with
+    # those names will be declared as constructors.
+    #
+    #   module SomeClass
+    #     attr_reader :val
+    #
+    #     def create(val)
+    #       @val = val
+    #     end
+    #
+    #     konstructor :create, :recreate
+    #
+    #     def recreate(val)
+    #       @val = val * 2
+    #     end
+    #   end
+    #
+    # <em>then:</em>
+    #
+    #   SomeClass.new.val
+    #   => nil
+    #   SomeClass.create(3).val
+    #   => 3
+    #   SomeClass.recreate(3).val
+    #   => 6
+    #
+    # Can be used multiple times with various arguments,
+    # all calls add up without overwriting each other.
+    #
+    # Can raise several errors inheriting from <code>Konstructor::Error</code>
+    #   ReservedNameError
+    #   DeclaringInheritedError
+    #   IncludingInModuleError
+    def konstructor(*several_variants)
+      Konstructor.declare(self, several_variants)
+      nil
     end
   end
 
@@ -72,7 +120,7 @@ module Konstructor
     # It adds only one method 'konstructor'.
     def append_features(klass)
       unless klass.is_a? Class
-        raise IncludeInModuleError, klass
+        raise IncludingInModuleError, klass
       end
 
       klass.extend(KonstructorMethod)

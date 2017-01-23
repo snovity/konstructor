@@ -44,8 +44,8 @@ You can also install it without Bundler:
 
     $ gem install konstructor
 
-If you are a gem author or just wish to manually include Konstructor 
-in your classes only when you need it, see 
+If you are a gem author or just wish to manually include `konstructor` 
+keyword in your classes only when you need it, see 
 [Manual include](https://github.com/snovity/konstructor/wiki/Manual-include) page.
    
 ## Usage
@@ -92,7 +92,7 @@ those methods without affecting the next method.
   end
  ```
  
- In all above cases the class will have the default constructor 
+ In all above cases `SomeClass` will have the default constructor 
  and two additional ones.
  
  ```ruby
@@ -101,10 +101,19 @@ those methods without affecting the next method.
  obj2 = SomeClass.recreate
  ```
  
+ If you decide to remove the default Ruby constructor for some reason,
+ you can effectively do it by marking it as private using Ruby 
+ method `private_class_method`:
+ 
+ ```ruby
+ class SomeClass
+   private_class_method :new
+ end   
+ ```
+  
 #### Same as default constructor
  
-Additional constructors work exactly the same way as 
-built-in Ruby constructor. 
+Additional constructors work exactly the same way as the default one.
 
 You can pass blocks to them. 
 
@@ -146,18 +155,6 @@ There are certain limitations to what can be declared as `konstructor`,
 see 
 [Limitations page](https://github.com/snovity/konstructor/wiki/Limitations)
 for details.
-
-If you decide to remove the default Ruby constructor for some reason,
-you can effectively do it by marking it as private using Ruby 
-method `private_class_method`:
-
-```ruby
-class SomeClass
-  private_class_method :new
-end   
-```
-
-Only additional constructors will be left in this case. 
 
 #### Using with other gems
 

@@ -159,7 +159,8 @@ for details.
 
 #### Using with other gems
 
-Konstructor doesn't affect other depending on metaprogramming, such as 
+Konstructor doesn't affect other gems depending on metaprogramming, 
+such as 
 [rake](https://github.com/ruby/rake),
 [thor](https://github.com/erikhuda/thor), 
 [contracts](https://github.com/egonSchiele/contracts.ruby), etc.

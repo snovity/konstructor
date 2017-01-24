@@ -4,8 +4,6 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/snovity/konstructor.svg)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/snovity/konstructor/badges/gpa.svg)][codeclimate]
 
-https://codeclimate.com/github/snovity/konstructor/badges/gpa.svg
-
 [gem]: https://rubygems.org/gems/konstructor
 [travis]: http://travis-ci.org/snovity/konstructor
 [coveralls]: https://coveralls.io/github/snovity/konstructor

@@ -116,7 +116,7 @@ and two additional ones.
 ```
  
 If you decide to remove the default Ruby constructor for some reason,
-you can effectively do it by marking it as private using Ruby 
+you can achieve the effect by marking it private with Ruby 
 method `private_class_method`:
  
 ```ruby
@@ -187,6 +187,9 @@ class SomeClass
     @number = some_number
   end
 end    
+
+obj0 = SomeClass.create(3)
+obj1 = SomeClass.create("three") # raises contract exception
 ```
   
 If you stumble upon a metaprogramming gem that 
@@ -195,19 +198,20 @@ conflicts with Konstructor, please
   
 ## Details
 
-Ruby constructor is a pair consisting of public factory method defined
-on a class and a private instance method. Therefore, to achieve 
-its goal `konstructor` marks instance method as private and defines a 
-corresponding public class method with the same name.
+The default Ruby constructor is a pair consisting of public
+class method `new` and a private instance 
+method `initialize`. To create an additional constructor `konstructor`
+marks instance method as private and defines a corresponding public 
+class method with the same name.
 
 #### Performance
  
-Konstructor does all its work when class is being defined. Once class
-has been defined, it's just standard Ruby instance creation.
-Therefore, there is no runtime performance penalty. 
+Using `konstructor` declaration has no runtime perfomance penalty. 
+It does all its work when class is being defined, and then it's just 
+standard Ruby instance creation. 
 
-As for the cost of declaring a constructor at initial load time, 
-it's roughly the same as declaring 3 properties with `attr_accessor`.
+Cost of `konstructor` declaration at initial load time is roughly the 
+same as declaring 3 properties with `attr_accessor`.
 ```ruby
   attr_accessor :one, :two, :three
   

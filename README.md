@@ -1,8 +1,8 @@
 [![Gem Version](http://img.shields.io/gem/v/konstructor.svg)][gem]
 [![Build Status](https://travis-ci.org/snovity/konstructor.svg?branch=master)][travis]
 [![Coverage Status](https://coveralls.io/repos/github/snovity/konstructor/badge.svg?branch=master)][coveralls]
-[![Dependency Status](https://gemnasium.com/badges/github.com/snovity/konstructor.svg)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/snovity/konstructor/badges/gpa.svg)][codeclimate]
+[![Dependency Status](https://gemnasium.com/badges/github.com/snovity/konstructor.svg)][gemnasium]
 
 [gem]: https://rubygems.org/gems/konstructor
 [travis]: http://travis-ci.org/snovity/konstructor
@@ -210,8 +210,8 @@ corresponding public class method with the same name.
 
 #### Performance
  
-Using `konstructor` declaration has no runtime perfomance penalty. 
-It does all its work when class is being defined, and then it's just 
+Using `konstructor` declaration has no runtime perfomance penalty, 
+since all work is done during class definition and then it's just 
 standard Ruby instance creation. 
 
 Cost of `konstructor` declaration at initial load time is roughly the 

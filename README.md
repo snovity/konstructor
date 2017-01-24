@@ -204,9 +204,9 @@ conflicts with Konstructor, please
 
 The default Ruby constructor is a pair consisting of public
 class method `new` and a private instance 
-method `initialize`. To create an additional constructor `konstructor`
-marks instance method as private and defines a corresponding public 
-class method with the same name.
+method `initialize`. To create an additional one `konstructor`
+marks given instance method as private and defines a 
+corresponding public class method with the same name.
 
 #### Performance
  

@@ -1,4 +1,4 @@
-[![Gem Version](http://img.shields.io/gem/v/konstructor.svg)][gem]
+[![Gem Version](https://badge.fury.io/rb/konstructor.svg)][gem]
 [![Build Status](https://travis-ci.org/snovity/konstructor.svg?branch=master)][travis]
 [![Coverage Status](https://coveralls.io/repos/github/snovity/konstructor/badge.svg?branch=master)][coveralls]
 [![Code Climate](https://codeclimate.com/github/snovity/konstructor/badges/gpa.svg)][codeclimate]

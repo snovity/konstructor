@@ -177,7 +177,7 @@ for details.
 #### Reusing default constructor
 
 Sometimes you don't want to completely replace the default constructor,
-instead just want to add additional processing before/after it.
+instead you just want to add additional processing before/after it.
 ```ruby
 class Person
   def initialize(name)
@@ -206,7 +206,7 @@ such as
 [thor](https://github.com/erikhuda/thor), 
 [contracts](https://github.com/egonSchiele/contracts.ruby), etc.
 
-For instnace, this is how Konstructor works with contracts:
+For instnace, this is how Konstructor works with Contracts:
 ```ruby
 class SomeClass
   konstructor

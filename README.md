@@ -180,7 +180,7 @@ Sometimes you don't want to completely replace the default constructor,
 instead just want to add additional processing before/after it.
 ```ruby
 class Person
-  def new(name)
+  def initialize(name)
     @name = name
     @word_count = name.split(' ').size 
   end

@@ -254,7 +254,7 @@ for details.
 #### Dependencies and requirements
 
 Konstructor doesn't depend on other gems. 
-Requires Ruby `1.9.3` or higher. 
+Requires Ruby `1.9.3` or higher. Works with JRuby.
   
 #### Thread safety
   

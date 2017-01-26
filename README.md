@@ -129,30 +129,6 @@ method `private_class_method`:
  end   
 ```
   
-#### Reusing default constructor
-
-Sometimes you don't want to completely replace the default constructor,
-and want just to add additional processing before/after it.
-```ruby
-class Person
-  def new(name)
-    @name = name
-    @word_count = name.split(' ').size 
-  end
-
-  konstructor
-  def from_two_names(first_name, second_name)
-    initialize(first_name + ' ' + second_name)
-    @name_count = 2 
-  end  
-  
-  attr_reader :name, :word_count, :name_count 
-end
-
-Person.new('John Doe')
-Person.from_two_names('John', 'Doe')
-```  
-  
 #### Same as default constructor
  
 Additional constructors work exactly the same way as the default one.
@@ -197,6 +173,30 @@ There are certain limitations to what can be declared as `konstructor`,
 see 
 [Limitations page](https://github.com/snovity/konstructor/wiki/Limitations)
 for details.
+
+#### Reusing default constructor
+
+Sometimes you don't want to completely replace the default constructor,
+instead just want to add additional processing before/after it.
+```ruby
+class Person
+  def new(name)
+    @name = name
+    @word_count = name.split(' ').size 
+  end
+
+  konstructor
+  def from_two_names(first_name, second_name)
+    initialize(first_name + ' ' + second_name)
+    @name_count = 2 
+  end  
+  
+  attr_reader :name, :word_count, :name_count 
+end
+
+Person.new('John Doe')
+Person.from_two_names('John', 'Doe')
+```
 
 #### Using with other gems
 

@@ -5,14 +5,16 @@ module Konstructor
     def initialize(klass)
       @klass = klass
       @konstructor_names = []
-      @next_method_is_konstructor = false
+      # converting string to symbol for much quicker hash lookups
+      @thread_next_method_var_name = :"konstructor#{object_id}"
+      reset_next_method_is_konstructor!
     end
 
     def declare(new_names)
       if new_names.empty?
-        @next_method_is_konstructor = true
+        next_method_is_konstructor!
       else
-        @next_method_is_konstructor = false
+        reset_next_method_is_konstructor!
         process_new_names(new_names)
       end
     end
@@ -24,8 +26,8 @@ module Konstructor
     def method_added_to_klass(name)
       name = name.to_sym
 
-      if @next_method_is_konstructor
-        @next_method_is_konstructor = false
+      if next_method_is_konstructor?
+        reset_next_method_is_konstructor!
         @konstructor_names << name
         process_declaration(name)
       elsif declared?(name)
@@ -34,6 +36,18 @@ module Konstructor
     end
 
     private
+
+    def next_method_is_konstructor!
+      Thread.current[@thread_next_method_var_name] = true
+    end
+
+    def reset_next_method_is_konstructor!
+      Thread.current[@thread_next_method_var_name] = false
+    end
+
+    def next_method_is_konstructor?
+       Thread.current[@thread_next_method_var_name]
+    end
 
     def declared_in_self?(name)
       @konstructor_names.include?(name.to_sym)

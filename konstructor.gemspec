@@ -1,5 +1,7 @@
 # coding: utf-8
-require_relative 'lib/konstructor/version'
+# require_relative 'lib/konstructor/version' <- doesn't work with Ruby 1.9.3 in gemspec when building gem
+require File.expand_path('../lib/konstructor/version', __FILE__)
+
 
 Gem::Specification.new do |spec|
   spec.name          = 'konstructor'

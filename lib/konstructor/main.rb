@@ -67,6 +67,8 @@ module Konstructor
   DEFAULT_NAMES = [:initialize]
   RESERVED_NAMES = [:new, :initialize]
 
+  extend MonitorMixin
+
   class << self
     def reserved?(name)
       RESERVED_NAMES.include?(name.to_sym)
@@ -90,11 +92,15 @@ module Konstructor
 
     def declare(klass, new_method_names)
       setup_method_added_hook(klass)
-      get_or_init_factory(klass).declare(new_method_names)
+      synchronize do
+        get_or_init_factory(klass).declare(new_method_names)
+      end
     end
 
     def method_added_to_klass(klass, method_name)
-      get_or_init_factory(klass).method_added_to_klass(method_name)
+      synchronize do
+        get_or_init_factory(klass).method_added_to_klass(method_name)
+      end
     end
 
     def is?(klass, method_name)

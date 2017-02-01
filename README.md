@@ -258,7 +258,7 @@ Requires Ruby `1.9.3` or higher. Works with JRuby.
   
 #### Thread safety
   
-Konstructor is thread safe.
+Konstructor is thread safe, see [Thread safety page] for details
 
 ## Contributing
 

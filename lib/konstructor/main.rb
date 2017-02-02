@@ -74,10 +74,6 @@ module Konstructor
       RESERVED_NAMES.include?(name.to_sym)
     end
 
-    def default?(name)
-      DEFAULT_NAMES.include?(name.to_sym)
-    end
-
     # Once method is a konstructor, it is always a konstructor, this differs
     # from the way private, protected works. If overriding method isn't repeatedly
     # marked as private it becomes public.
@@ -103,6 +99,16 @@ module Konstructor
       end
     end
 
+    # TODO: should make sure that a pair of methods is defined
+    # def defined?(klass, method_name)
+    # end
+
+    # deprecated
+    def default?(name)
+      DEFAULT_NAMES.include?(name.to_sym)
+    end
+
+    # deprecated
     def is?(klass, method_name)
       default?(method_name) || declared?(klass, method_name)
     end

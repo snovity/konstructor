@@ -6,17 +6,13 @@ describe "thread safety for konstructor names" do
 
   context "when concurrent definition declares & defines another constructor" do
     let_klass do
-      klass = self
-
       konstructor :alpha
       concurrent_definition = Thread.new do
-        klass.class_exec do
-          def gamma
-          end
-
-          konstructor :betta
-          def_betta
+        def gamma
         end
+
+        konstructor :betta
+        def_betta
       end
       concurrent_definition.join
 
@@ -32,17 +28,13 @@ describe "thread safety for konstructor names" do
 
   context "when concurrent definition redeclares not yet defined constructor" do
     let_klass do
-      klass = self
-
       konstructor :alpha
       concurrent_definition = Thread.new do
-        klass.class_exec do
-          def gamma
-          end
-
-          konstructor :alpha, :betta
-          def_betta
+        def gamma
         end
+
+        konstructor :alpha, :betta
+        def_betta
       end
       concurrent_definition.join
 
@@ -58,16 +50,12 @@ describe "thread safety for konstructor names" do
 
   context "when concurrent definition declares not yet defined constructor" do
     let_klass do
-      klass = self
-
       concurrent_definition = Thread.new do
-        klass.class_exec do
-          def gamma
-          end
-
-          konstructor :alpha, :betta
-          def_betta
+        def gamma
         end
+
+        konstructor :alpha, :betta
+        def_betta
       end
       concurrent_definition.join
 

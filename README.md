@@ -239,9 +239,9 @@ since all work is done during class definition and then it's just
 standard Ruby instance creation. 
 
 Cost of `konstructor` declaration at initial load time is roughly the 
-same as declaring 3 properties with `attr_accessor`.
+same as declaring 5 properties with `attr_accessor`.
 ```ruby
-  attr_accessor :one, :two, :three
+  attr_accessor :one, :two, :three, :four, :five
   
   # following declaration takes the same time as above declaration
   konstructor
@@ -258,7 +258,9 @@ Requires Ruby `1.9.3` or higher. Works with JRuby.
   
 #### Thread safety
   
-Konstructor is thread safe, see [Thread safety page] for details
+Konstructor is thread safe in both CRuby and JRuby,
+see [Thread safety page](https://github.com/snovity/konstructor/wiki/Thread-safety) 
+for details.
 
 ## Contributing
 

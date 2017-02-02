@@ -1,11 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor'
 
 describe "thread safety for konstructor mixed usage" do
 
   context "when concurrent definition defines & declares another konstructor via name" do
-    let_klass do
+    let_konstructor_klass do
       konstructor
       concurrent_definition = Thread.new do
         def gamma
@@ -28,7 +27,7 @@ describe "thread safety for konstructor mixed usage" do
   end
 
   context "when concurrent definition declares one constructor and declares & defines another one" do
-    let_klass do
+    let_konstructor_klass do
       concurrent_definition = Thread.new do
         def gamma
         end
@@ -51,7 +50,7 @@ describe "thread safety for konstructor mixed usage" do
   end
 
   context "when concurrent definition redeclares already declared & defined constructor" do
-    let_klass do
+    let_konstructor_klass do
       konstructor
       def_alpha
 

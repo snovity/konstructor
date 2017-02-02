@@ -34,7 +34,7 @@ obj1 = SomeClass.create(3)
 obj1.val # 3
 ```
 It's similar to having overloaded constructors in other languages. 
-Works with Ruby '1.9.3' or higher.
+Works with Ruby 1.9.3 or higher.
 
 ## Installation
 
@@ -255,7 +255,7 @@ for details.
 #### Dependencies and requirements
 
 Konstructor doesn't depend on other gems. 
-Requires Ruby `1.9.3` or higher. Works with JRuby.
+Requires Ruby 1.9.3 or higher. Works with JRuby.
   
 #### Thread safety
   

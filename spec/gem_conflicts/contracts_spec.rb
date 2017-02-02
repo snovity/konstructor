@@ -1,32 +1,37 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor'
 
 describe "Konstructor with contracts.ruby" do
+
+  before :all do
+    require 'konstructor'
+  end
 
   # Contracts seem not to work with any kind of class metaprogramming,
   # so have to define regular classes
 
   context "when contract is for method" do
-    class TestContractsOne
-      include Contracts::Core
-      include Contracts::Builtin
+    before :all do
+      class TestContractsOne
+        include Contracts::Core
+        include Contracts::Builtin
 
-      attr_reader :zero, :one, :two, :three
+        attr_reader :zero, :one, :two, :three
 
-      def initialize
-        @zero = 0
-      end
+        def initialize
+          @zero = 0
+        end
 
-      konstructor
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+        konstructor
+        def alpha(one, two)
+          @one, @two = one, two
+        end
 
-      Contract Num => Bool
-      def betta(three)
-        @three = three
-        true
+        Contract Num => Bool
+        def betta(three)
+          @three = three
+          true
+        end
       end
     end
 
@@ -60,25 +65,27 @@ describe "Konstructor with contracts.ruby" do
   end
 
   context "when contract is for konstructor after konstructor keyword" do
-    class TestContractsTwo
-      include Contracts::Core
-      include Contracts::Builtin
+    before :all do
+      class TestContractsTwo
+        include Contracts::Core
+        include Contracts::Builtin
 
-      attr_reader :zero, :one, :two, :three
+        attr_reader :zero, :one, :two, :three
 
-      def initialize
-        @zero = 0
-      end
+        def initialize
+          @zero = 0
+        end
 
-      konstructor
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+        konstructor
+        def alpha(one, two)
+          @one, @two = one, two
+        end
 
-      konstructor
-      Contract Num => TestContractsTwo
-      def betta(three)
-        @three = three
+        konstructor
+        Contract Num => TestContractsTwo
+        def betta(three)
+          @three = three
+        end
       end
     end
 
@@ -108,25 +115,27 @@ describe "Konstructor with contracts.ruby" do
   end
 
   context "when contract is for konstructor before konstructor keyword" do
-    class TestContractsThree
-      include Contracts::Core
-      include Contracts::Builtin
+    before :all do
+      class TestContractsThree
+        include Contracts::Core
+        include Contracts::Builtin
 
-      attr_reader :zero, :one, :two, :three
+        attr_reader :zero, :one, :two, :three
 
-      def initialize
-        @zero = 0
-      end
+        def initialize
+          @zero = 0
+        end
 
-      konstructor
-      def alpha(one, two)
-        @one, @two = one, two
-      end
+        konstructor
+        def alpha(one, two)
+          @one, @two = one, two
+        end
 
-      Contract Num => TestContractsThree
-      konstructor
-      def betta(three)
-        @three = three
+        Contract Num => TestContractsThree
+        konstructor
+        def betta(three)
+          @three = three
+        end
       end
     end
 

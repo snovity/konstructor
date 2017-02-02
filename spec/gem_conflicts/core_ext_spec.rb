@@ -1,8 +1,11 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor/core_ext'
 
 describe "konstructor without include" do
+
+  before :all do
+    require 'konstructor'
+  end
 
   context "when one custom konstructor" do
     let_klass do

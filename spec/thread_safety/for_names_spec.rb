@@ -1,11 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor'
 
 describe "thread safety for konstructor names" do
 
   context "when concurrent definition declares & defines another constructor" do
-    let_klass do
+    let_konstructor_klass do
       konstructor :alpha
       concurrent_definition = Thread.new do
         def gamma
@@ -27,7 +26,7 @@ describe "thread safety for konstructor names" do
   end
 
   context "when concurrent definition redeclares not yet defined constructor" do
-    let_klass do
+    let_konstructor_klass do
       konstructor :alpha
       concurrent_definition = Thread.new do
         def gamma
@@ -49,7 +48,7 @@ describe "thread safety for konstructor names" do
   end
 
   context "when concurrent definition declares not yet defined constructor" do
-    let_klass do
+    let_konstructor_klass do
       concurrent_definition = Thread.new do
         def gamma
         end

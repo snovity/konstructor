@@ -1,8 +1,11 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor'
 
 describe "Konstructor with constructor" do
+
+  before :all do
+    require 'konstructor'
+  end
 
   let_klass(skip_initialize: true) do
     konstructor

@@ -1,7 +1,10 @@
 require 'spec_helper'
-require 'konstructor'
 
 describe "Konstructor with Thor" do
+
+  before :all do
+    require 'konstructor'
+  end
 
   let(:base_class) { Thor }
 

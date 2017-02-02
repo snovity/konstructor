@@ -1,11 +1,10 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'konstructor'
 
 describe "thread safety for konstructor next method" do
 
   context "when concurrent definiton defines regular method first" do
-    let_klass do
+    let_konstructor_klass do
       konstructor
       concurrent_definition = Thread.new do
         def gamma
@@ -27,7 +26,7 @@ describe "thread safety for konstructor next method" do
   end
 
   context "when concurrent definition defines another constructor first" do
-    let_klass do
+    let_konstructor_klass do
       konstructor
       concurrent_definition = Thread.new do
         konstructor

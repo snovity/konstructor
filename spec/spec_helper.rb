@@ -20,6 +20,22 @@ RSpec.configure do |config|
 
   config.include CoreHelpers
   config.extend RspecExtensions
+
+  config.register_ordering(:global) do |examples|
+    gem_specs = []
+    general_specs = []
+
+    examples.select do |example|
+      if example.metadata[:file_path].include?('spec/gem_conflicts')
+        gem_specs << example
+      else
+        general_specs << example
+      end
+    end
+
+    # gem specs do konstructor core extentions that can't be reverted
+    general_specs + gem_specs
+  end
 end
 
 require 'konstructor/no_core_ext'

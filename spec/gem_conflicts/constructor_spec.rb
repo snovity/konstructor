@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../shared'
 
 describe "Konstructor with constructor" do
 

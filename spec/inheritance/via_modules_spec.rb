@@ -1,6 +1,5 @@
 require 'spec_helper'
 require_relative '../shared'
-require 'active_support/concern'
 
 describe "konstructor via modules" do
 

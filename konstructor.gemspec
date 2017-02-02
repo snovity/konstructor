@@ -12,8 +12,9 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Multiple constructors in Ruby.}
   # few paragraphs with no examples or formatting
   spec.description   = %q{
-    Konstructor is a small gem that gives you multiple constructors in Ruby.
-    It's similar to having overloaded constructors in other languages.
+    Multiple constructors in a idiomatic Ruby way.
+    Small, fast, doesn't depend on other gems, thread-safe.
+    The end result is similar to having overloaded constructors in other languages.
   }
   spec.homepage      = 'https://github.com/snovity/konstructor'
   spec.license       = 'MIT'

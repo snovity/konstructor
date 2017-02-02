@@ -12,8 +12,8 @@
 
 # Konstructor
 
-This is a small gem that gives you multiple
-constructors in Ruby.
+Multiple constructors in a idiomatic Ruby 
+way. Small, fast, doesn't depend on other gems, thread-safe.
 
 Use `konstructor` keyword to declare constructors additional 
 to the defaul one:
@@ -33,7 +33,8 @@ obj0.val # nil
 obj1 = SomeClass.create(3)
 obj1.val # 3
 ```
-It's similar to having overloaded constructors in other languages.
+It's similar to having overloaded constructors in other languages. 
+Works with Ruby '1.9.3' or higher.
 
 ## Installation
 

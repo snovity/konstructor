@@ -31,7 +31,7 @@ describe "Konstructor with Thor" do
     end
   end
 
-  context "method defined after attaching continue to work" do
+  context "method defined after attaching continues to work" do
     let(:instance) do
       ActiveSupport::Notifications.instrument('before_attached.test_namespace', one: 111)
       ActiveSupport::Notifications.instrument('after_attached.test_namespace', two: 2)

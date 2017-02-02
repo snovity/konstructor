@@ -13,10 +13,10 @@
 # Konstructor
 
 Multiple constructors in a idiomatic Ruby 
-way. Small, fast, doesn't depend on other gems, thread-safe.
+way. Small, fast, thread-safe, doesn't depend on other gems.
 
 Use `konstructor` keyword to declare constructors additional 
-to the defaul one:
+to the default one:
 ```ruby
 class SomeClass
   konstructor

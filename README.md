@@ -258,7 +258,7 @@ Requires Ruby `1.9.3` or higher. Works with JRuby.
   
 #### Thread safety
   
-Konstructor is thread safe in both CRuby and JRuby,
+Konstructor is thread-safe in both CRuby and JRuby,
 see [Thread safety page](https://github.com/snovity/konstructor/wiki/Thread-safety) 
 for details.
 
